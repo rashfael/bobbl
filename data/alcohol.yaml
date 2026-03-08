@@ -1,0 +1,109 @@
+meta:
+  category: alcohol
+  description: "Alkoholische Zutaten / Alcoholic ingredients"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: rum
+    name:
+      de: "Rum (40%)"
+      en: "Rum (40%)"
+    ethanolPercent: 40
+    sugarPercent: 0
+    pac: 790
+    waterPercent: 60
+    typicalUsagePercent:
+      min: 1
+      max: 3
+    source: icecreamcalc
+
+  - id: amaretto
+    name:
+      de: "Amaretto (28%)"
+      en: "Amaretto (28%)"
+    ethanolPercent: 28
+    sugarPercent: 25
+    pac: 580
+    waterPercent: 47
+    typicalUsagePercent:
+      min: 2
+      max: 5
+    source: icecreamcalc
+
+  - id: grappa
+    name:
+      de: "Grappa (40%)"
+      en: "Grappa (40%)"
+    ethanolPercent: 40
+    sugarPercent: 0
+    pac: 790
+    waterPercent: 60
+    typicalUsagePercent:
+      min: 1
+      max: 3
+    source: icecreamcalc
+
+  - id: grand-marnier
+    name:
+      de: "Grand Marnier (40%)"
+      en: "Grand Marnier (40%)"
+    ethanolPercent: 40
+    sugarPercent: 18
+    pac: 810
+    waterPercent: 42
+    typicalUsagePercent:
+      min: 1
+      max: 3
+    source: icecreamcalc
+
+  - id: vodka
+    name:
+      de: "Wodka (40%)"
+      en: "Vodka (40%)"
+    ethanolPercent: 40
+    sugarPercent: 0
+    pac: 790
+    waterPercent: 60
+    typicalUsagePercent:
+      min: 0.5
+      max: 2
+    source: icecreamcalc
+
+  - id: whisky
+    name:
+      de: "Whisky (40%)"
+      en: "Whisky (40%)"
+    ethanolPercent: 40
+    sugarPercent: 0
+    pac: 790
+    waterPercent: 60
+    typicalUsagePercent:
+      min: 1
+      max: 3
+    source: icecreamcalc
+
+  - id: baileys
+    name:
+      de: "Baileys Irish Cream (17%)"
+      en: "Baileys Irish Cream (17%)"
+    ethanolPercent: 17
+    sugarPercent: 20
+    pac: 380
+    waterPercent: 50
+    typicalUsagePercent:
+      min: 3
+      max: 8
+    source: icecreamcalc
+
+  - id: limoncello
+    name:
+      de: "Limoncello (30%)"
+      en: "Limoncello (30%)"
+    ethanolPercent: 30
+    sugarPercent: 30
+    pac: 650
+    waterPercent: 40
+    typicalUsagePercent:
+      min: 2
+      max: 5
+    source: icecreamcalc

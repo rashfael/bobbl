@@ -1,0 +1,173 @@
+meta:
+  category: sugars
+  description: "Zucker und Suessmittel / Sugars and sweeteners"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: sucrose
+    name:
+      de: "Saccharose (Haushaltszucker)"
+      en: "Sucrose (table sugar)"
+    de: null
+    pod: 100
+    pac: 100
+    molecularWeight: 342.3
+    totalSolidsPercent: 100
+    typicalUsagePercent:
+      min: 5
+      max: 20
+    source: deGiglio2019
+
+  - id: dextrose
+    name:
+      de: "Dextrose (Traubenzucker)"
+      en: "Dextrose (D-Glucose)"
+    de: 100
+    pod: 75
+    pac: 190
+    molecularWeight: 180.16
+    totalSolidsPercent: 92
+    typicalUsagePercent:
+      min: 1
+      max: 5
+    source: deGiglio2019
+
+  - id: fructose
+    name:
+      de: "Fructose (Fruchtzucker)"
+      en: "Fructose"
+    de: null
+    pod: 170
+    pac: 190
+    molecularWeight: 180.16
+    totalSolidsPercent: 100
+    typicalUsagePercent:
+      min: 1
+      max: 5
+    source: deGiglio2019
+
+  - id: invert-sugar
+    name:
+      de: "Invertzucker (Trimoline)"
+      en: "Invert sugar"
+    de: null
+    pod: 130
+    pac: 190
+    molecularWeight: null
+    totalSolidsPercent: 78
+    typicalUsagePercent:
+      min: 2
+      max: 8
+    source: deGiglio2019
+
+  - id: trehalose
+    name:
+      de: "Trehalose"
+      en: "Trehalose"
+    de: null
+    pod: 50
+    pac: 100
+    molecularWeight: 342.3
+    totalSolidsPercent: 100
+    typicalUsagePercent:
+      min: 2
+      max: 8
+    source: trehalose2016
+
+  - id: glucose-de97
+    name:
+      de: "Glucose DE97 (Glukose)"
+      en: "Glucose DE97"
+    de: 97
+    pod: 75
+    pac: 190
+    molecularWeight: null
+    totalSolidsPercent: 92
+    typicalUsagePercent:
+      min: 1
+      max: 5
+    source: deGiglio2019
+
+  - id: glucose-de39
+    name:
+      de: "Glucose DE39"
+      en: "Glucose DE39"
+    de: 39
+    pod: 60
+    pac: 72
+    molecularWeight: null
+    totalSolidsPercent: 95
+    typicalUsagePercent:
+      min: 2
+      max: 8
+    source: deGiglio2019
+
+  - id: glucose-syrup-de60
+    name:
+      de: "Glukosesirup DE60"
+      en: "Glucose syrup DE60"
+    de: 60
+    pod: 50
+    pac: 150
+    molecularWeight: null
+    totalSolidsPercent: 80
+    typicalUsagePercent:
+      min: 2
+      max: 10
+    source: deGiglio2019
+
+  - id: maltodextrin-de19
+    name:
+      de: "Maltodextrin DE19"
+      en: "Maltodextrin DE19"
+    de: 19
+    pod: 30
+    pac: 33
+    molecularWeight: null
+    totalSolidsPercent: 90
+    typicalUsagePercent:
+      min: 1
+      max: 5
+    source: deGiglio2019
+
+  - id: inulin
+    name:
+      de: "Inulin (Chicoreefaser)"
+      en: "Inulin (chicory fiber)"
+    de: null
+    pod: 20
+    pac: 20
+    molecularWeight: null
+    totalSolidsPercent: 98
+    typicalUsagePercent:
+      min: 2
+      max: 8
+    source: muszynski2020
+
+  - id: honey
+    name:
+      de: "Honig"
+      en: "Honey"
+    de: null
+    pod: 130
+    pac: 230
+    molecularWeight: null
+    totalSolidsPercent: 80
+    typicalUsagePercent:
+      min: 2
+      max: 8
+    source: deGiglio2019
+
+  - id: agave-syrup
+    name:
+      de: "Agavensirup"
+      en: "Agave syrup"
+    de: null
+    pod: 150
+    pac: 190
+    molecularWeight: null
+    totalSolidsPercent: 70
+    typicalUsagePercent:
+      min: 2
+      max: 6
+    source: deGiglio2019

@@ -1,0 +1,96 @@
+meta:
+  category: chocolate-cocoa
+  description: "Schokolade und Kakao / Chocolate and cocoa"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: cocoa-powder-10-12
+    name:
+      de: "Kakaopulver 10-12% Fett (stark entoelt)"
+      en: "Cocoa powder 10-12% fat (heavily defatted)"
+    fatPercent: 12
+    sugarPercent: 0
+    cocoaSolidsPercent: 100
+    totalSolidsPercent: 100
+    waterPercent: 0
+    pod: 0
+    pac: 0
+    source: deGiglio2019
+
+  - id: cocoa-powder-20-22
+    name:
+      de: "Kakaopulver 20-22% Fett (schwach entoelt)"
+      en: "Cocoa powder 20-22% fat (lightly defatted)"
+    fatPercent: 21
+    sugarPercent: 0
+    cocoaSolidsPercent: 100
+    totalSolidsPercent: 97
+    waterPercent: 3
+    pod: 0
+    pac: 0
+    source: usda
+
+  - id: cocoa-mass
+    name:
+      de: "Kakaomasse (100% Kakao)"
+      en: "Cocoa mass / Cocoa liquor"
+    fatPercent: 54
+    sugarPercent: 0
+    cocoaSolidsPercent: 100
+    totalSolidsPercent: 100
+    waterPercent: 0
+    pod: 0
+    pac: 0
+    source: deGiglio2019
+
+  - id: dark-chocolate-70
+    name:
+      de: "Zartbitterschokolade 70%"
+      en: "Dark chocolate 70%"
+    fatPercent: 38
+    sugarPercent: 30
+    cocoaSolidsPercent: 70
+    totalSolidsPercent: 100
+    waterPercent: 0
+    pod: 0
+    pac: 0
+    source: deGiglio2019
+
+  - id: dark-chocolate-55
+    name:
+      de: "Zartbitterschokolade 55%"
+      en: "Dark chocolate 55%"
+    fatPercent: 35
+    sugarPercent: 42
+    cocoaSolidsPercent: 55
+    totalSolidsPercent: 99
+    waterPercent: 1
+    pod: 0
+    pac: 0
+    source: usda
+
+  - id: milk-chocolate
+    name:
+      de: "Vollmilchschokolade"
+      en: "Milk chocolate"
+    fatPercent: 32
+    sugarPercent: 48
+    cocoaSolidsPercent: 30
+    totalSolidsPercent: 99
+    waterPercent: 1
+    pod: 0
+    pac: 0
+    source: usda
+
+  - id: white-chocolate
+    name:
+      de: "Weisse Schokolade"
+      en: "White chocolate"
+    fatPercent: 34
+    sugarPercent: 52
+    cocoaSolidsPercent: 0
+    totalSolidsPercent: 99
+    waterPercent: 1
+    pod: 0
+    pac: 0
+    source: usda

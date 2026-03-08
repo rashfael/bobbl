@@ -1,0 +1,137 @@
+meta:
+  category: nuts
+  description: "Nuesse und Pasten / Nuts and pastes"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: hazelnut-whole
+    name:
+      de: "Haselnuss (ganz, geroestet)"
+      en: "Hazelnut (whole, roasted)"
+    fatPercent: 61
+    proteinPercent: 13
+    carbsPercent: 17
+    totalSolidsPercent: 97
+    waterPercent: 3
+    isPaste: false
+    source: usda
+
+  - id: hazelnut-paste
+    name:
+      de: "Haselnusspaste 100%"
+      en: "Hazelnut paste 100%"
+    fatPercent: 65
+    proteinPercent: 13
+    carbsPercent: 17
+    totalSolidsPercent: 100
+    waterPercent: 0
+    isPaste: true
+    source: deGiglio2019
+
+  - id: pistachio-whole
+    name:
+      de: "Pistazie (geschaelt)"
+      en: "Pistachio (shelled)"
+    fatPercent: 43
+    proteinPercent: 20
+    carbsPercent: 29
+    totalSolidsPercent: 94
+    waterPercent: 6
+    isPaste: false
+    source: usda
+
+  - id: pistachio-paste
+    name:
+      de: "Pistazienpaste 100%"
+      en: "Pistachio paste 100%"
+    fatPercent: 56
+    proteinPercent: 20
+    carbsPercent: 24
+    totalSolidsPercent: 100
+    waterPercent: 0
+    isPaste: true
+    source: deGiglio2019
+
+  - id: almond-whole
+    name:
+      de: "Mandel (ganz)"
+      en: "Almond (whole)"
+    fatPercent: 50
+    proteinPercent: 21
+    carbsPercent: 22
+    totalSolidsPercent: 95
+    waterPercent: 5
+    isPaste: false
+    source: usda
+
+  - id: almond-paste
+    name:
+      de: "Mandelpaste 100%"
+      en: "Almond paste 100%"
+    fatPercent: 56
+    proteinPercent: 21
+    carbsPercent: 23
+    totalSolidsPercent: 100
+    waterPercent: 0
+    isPaste: true
+    source: deGiglio2019
+
+  - id: walnut
+    name:
+      de: "Walnuss"
+      en: "Walnut"
+    fatPercent: 70
+    proteinPercent: 13
+    carbsPercent: 13
+    totalSolidsPercent: 100
+    waterPercent: 0
+    isPaste: false
+    source: deGiglio2019
+
+  - id: peanut-paste
+    name:
+      de: "Erdnusspaste 100% (Erdnussmus)"
+      en: "Peanut butter 100%"
+    fatPercent: 45
+    proteinPercent: 26
+    carbsPercent: 27
+    totalSolidsPercent: 100
+    waterPercent: 0
+    isPaste: true
+    source: deGiglio2019
+
+  - id: coconut-flakes
+    name:
+      de: "Kokosraspel (getrocknet)"
+      en: "Desiccated coconut"
+    fatPercent: 64
+    proteinPercent: 7
+    carbsPercent: 24
+    totalSolidsPercent: 97
+    waterPercent: 3
+    isPaste: false
+    source: usda
+
+  - id: cashew
+    name:
+      de: "Cashew"
+      en: "Cashew"
+    fatPercent: 44
+    proteinPercent: 18
+    carbsPercent: 30
+    totalSolidsPercent: 95
+    waterPercent: 5
+    isPaste: false
+    source: usda
+
+  - id: pecan
+    name:
+      de: "Pekannuss"
+      en: "Pecan"
+    fatPercent: 72
+    proteinPercent: 9
+    carbsPercent: 14
+    totalSolidsPercent: 96
+    waterPercent: 4
+    isPaste: false
+    source: usda

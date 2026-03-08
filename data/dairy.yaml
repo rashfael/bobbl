@@ -1,0 +1,161 @@
+meta:
+  category: dairy
+  description: "Milchprodukte / Dairy products"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: whole-milk-3.5
+    name:
+      de: "Vollmilch 3,5%"
+      en: "Whole milk 3.5%"
+    fatPercent: 3.5
+    proteinPercent: 3.4
+    lactosePercent: 4.7
+    slngPercent: 8.9
+    totalSolidsPercent: 12.4
+    waterPercent: 87.6
+    source: bls
+
+  - id: skim-milk
+    name:
+      de: "Magermilch (0,3%)"
+      en: "Skim milk (0.3%)"
+    fatPercent: 0.3
+    proteinPercent: 3.5
+    lactosePercent: 4.8
+    slngPercent: 9.2
+    totalSolidsPercent: 9.5
+    waterPercent: 90.5
+    source: bls
+
+  - id: cream-35
+    name:
+      de: "Schlagsahne 35%"
+      en: "Heavy cream 35%"
+    fatPercent: 35
+    proteinPercent: 2.0
+    lactosePercent: 3.0
+    slngPercent: 5.0
+    totalSolidsPercent: 40.0
+    waterPercent: 60.0
+    source: bls
+
+  - id: cream-30
+    name:
+      de: "Sahne 30%"
+      en: "Light cream 30%"
+    fatPercent: 30
+    proteinPercent: 2.2
+    lactosePercent: 3.2
+    slngPercent: 5.5
+    totalSolidsPercent: 35.5
+    waterPercent: 64.5
+    source: bls
+
+  - id: skim-milk-powder
+    name:
+      de: "Magermilchpulver"
+      en: "Skim milk powder (SMP)"
+    fatPercent: 1.0
+    proteinPercent: 36.0
+    lactosePercent: 51.0
+    slngPercent: 96.0
+    totalSolidsPercent: 97.0
+    waterPercent: 3.0
+    source: codex
+
+  - id: whole-milk-powder
+    name:
+      de: "Vollmilchpulver"
+      en: "Whole milk powder"
+    fatPercent: 26.0
+    proteinPercent: 25.0
+    lactosePercent: 38.0
+    slngPercent: 71.0
+    totalSolidsPercent: 97.0
+    waterPercent: 3.0
+    source: codex
+
+  - id: condensed-milk-sweetened
+    name:
+      de: "Kondensmilch (gezuckert)"
+      en: "Sweetened condensed milk"
+    fatPercent: 8.5
+    proteinPercent: 6.5
+    lactosePercent: 12.0
+    slngPercent: 22.0
+    totalSolidsPercent: 74.0
+    waterPercent: 26.0
+    source: usda
+
+  - id: condensed-milk
+    name:
+      de: "Kondensmilch (7,5%)"
+      en: "Evaporated milk (7.5%)"
+    fatPercent: 7.5
+    proteinPercent: 7.0
+    lactosePercent: 10.0
+    slngPercent: 18.0
+    totalSolidsPercent: 25.5
+    waterPercent: 74.5
+    source: usda
+
+  - id: mascarpone
+    name:
+      de: "Mascarpone"
+      en: "Mascarpone"
+    fatPercent: 42.0
+    proteinPercent: 4.5
+    lactosePercent: 3.5
+    slngPercent: 10.0
+    totalSolidsPercent: 52.0
+    waterPercent: 48.0
+    source: bls
+
+  - id: cream-cheese
+    name:
+      de: "Frischkaese (Doppelrahmstufe)"
+      en: "Cream cheese"
+    fatPercent: 24.0
+    proteinPercent: 5.5
+    lactosePercent: 3.5
+    slngPercent: 11.0
+    totalSolidsPercent: 35.0
+    waterPercent: 65.0
+    source: bls
+
+  - id: yogurt
+    name:
+      de: "Joghurt (3,5%)"
+      en: "Yogurt (3.5%)"
+    fatPercent: 3.5
+    proteinPercent: 3.6
+    lactosePercent: 4.0
+    slngPercent: 8.5
+    totalSolidsPercent: 12.0
+    waterPercent: 88.0
+    source: bls
+
+  - id: buttermilk
+    name:
+      de: "Buttermilch"
+      en: "Buttermilk"
+    fatPercent: 0.5
+    proteinPercent: 3.5
+    lactosePercent: 4.0
+    slngPercent: 8.5
+    totalSolidsPercent: 9.0
+    waterPercent: 91.0
+    source: bls
+
+  - id: creme-fraiche
+    name:
+      de: "Creme fraiche (30%)"
+      en: "Creme fraiche (30%)"
+    fatPercent: 30.0
+    proteinPercent: 2.5
+    lactosePercent: 3.0
+    slngPercent: 5.5
+    totalSolidsPercent: 35.5
+    waterPercent: 64.5
+    source: bls

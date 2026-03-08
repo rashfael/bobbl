@@ -1,0 +1,455 @@
+meta:
+  category: fruits
+  description: "Fruechte / Fruits"
+  lastUpdated: "2026-03-07"
+
+items:
+  # === Beeren / Berries ===
+
+  - id: strawberry
+    name:
+      de: "Erdbeere"
+      en: "Strawberry"
+    brix:
+      catalogueMin: 6
+      catalogueMax: 9
+      catalogueAvg: 7.5
+    acidityPh: 3.4
+    waterPercent: 91
+    fiberPercent: 2.0
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 9
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 5
+      end: 7
+    source: osu_berry
+
+  - id: raspberry
+    name:
+      de: "Himbeere"
+      en: "Raspberry"
+    brix:
+      catalogueMin: 8
+      catalogueMax: 11
+      catalogueAvg: 9.2
+    acidityPh: 3.2
+    waterPercent: 86
+    fiberPercent: 6.5
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 14
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 6
+      end: 8
+    source: osu_berry
+
+  - id: blueberry
+    name:
+      de: "Heidelbeere (Blaubeere)"
+      en: "Blueberry"
+    brix:
+      catalogueMin: 9
+      catalogueMax: 12
+      catalogueAvg: 10.0
+    acidityPh: 3.3
+    waterPercent: 84
+    fiberPercent: 2.4
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 16
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 7
+      end: 9
+    source: fruitsmart
+
+  - id: blackberry
+    name:
+      de: "Brombeere"
+      en: "Blackberry"
+    brix:
+      catalogueMin: 8
+      catalogueMax: 12
+      catalogueAvg: 9.5
+    acidityPh: 3.4
+    waterPercent: 88
+    fiberPercent: 5.3
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 12
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 7
+      end: 9
+    source: fruitsmart
+
+  - id: red-currant
+    name:
+      de: "Rote Johannisbeere"
+      en: "Red currant"
+    brix:
+      catalogueMin: 9
+      catalogueMax: 12
+      catalogueAvg: 10.5
+    acidityPh: 2.9
+    waterPercent: 84
+    fiberPercent: 4.3
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 16
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 6
+      end: 8
+    source: fruitsmart
+
+  - id: black-currant
+    name:
+      de: "Schwarze Johannisbeere (Cassis)"
+      en: "Black currant"
+    brix:
+      catalogueMin: 11
+      catalogueMax: 15
+      catalogueAvg: 12.0
+    acidityPh: 2.8
+    waterPercent: 82
+    fiberPercent: 4.0
+    predominantSugarType: "fructose+glucose"
+    totalSolidsPercent: 18
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 7
+      end: 8
+    source: fruitsmart
+
+  # === Steinobst / Stone fruits ===
+
+  - id: sour-cherry
+    name:
+      de: "Sauerkirsche (Weichsel)"
+      en: "Sour cherry"
+    brix:
+      catalogueMin: 12
+      catalogueMax: 16
+      catalogueAvg: 14.0
+    acidityPh: 3.3
+    waterPercent: 86
+    fiberPercent: 1.6
+    predominantSugarType: "glucose+fructose"
+    totalSolidsPercent: 14
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 6
+      end: 8
+    source: fruitsmart
+
+  - id: sweet-cherry
+    name:
+      de: "Suesskirsche"
+      en: "Sweet cherry"
+    brix:
+      catalogueMin: 16
+      catalogueMax: 24
+      catalogueAvg: 20.0
+    acidityPh: 3.8
+    waterPercent: 82
+    fiberPercent: 2.1
+    predominantSugarType: "glucose+fructose"
+    totalSolidsPercent: 18
+    form: ["frisch", "TK"]
+    season:
+      start: 6
+      end: 7
+    source: fruitsmart
+
+  - id: apricot
+    name:
+      de: "Aprikose (Marille)"
+      en: "Apricot"
+    brix:
+      catalogueMin: 10
+      catalogueMax: 14
+      catalogueAvg: 11.7
+    acidityPh: 3.5
+    waterPercent: 86
+    fiberPercent: 2.0
+    predominantSugarType: "sucrose"
+    totalSolidsPercent: 14
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 7
+      end: 8
+    source: fruitsmart
+
+  - id: peach
+    name:
+      de: "Pfirsich"
+      en: "Peach"
+    brix:
+      catalogueMin: 9
+      catalogueMax: 13
+      catalogueAvg: 10.5
+    acidityPh: 3.6
+    waterPercent: 89
+    fiberPercent: 1.5
+    predominantSugarType: "sucrose+glucose"
+    totalSolidsPercent: 11
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 7
+      end: 9
+    source: fruitsmart
+
+  - id: plum
+    name:
+      de: "Pflaume (Zwetschge)"
+      en: "Plum"
+    brix:
+      catalogueMin: 12
+      catalogueMax: 18
+      catalogueAvg: 14.3
+    acidityPh: 3.4
+    waterPercent: 87
+    fiberPercent: 1.4
+    predominantSugarType: "sucrose+glucose"
+    totalSolidsPercent: 13
+    form: ["frisch", "TK", "Pueree"]
+    season:
+      start: 8
+      end: 10
+    source: fruitsmart
+
+  # === Zitrusfruechte / Citrus ===
+
+  - id: lemon
+    name:
+      de: "Zitrone"
+      en: "Lemon"
+    brix:
+      catalogueMin: 3
+      catalogueMax: 6
+      catalogueAvg: 4.5
+    acidityPh: 2.3
+    waterPercent: 89
+    fiberPercent: 2.8
+    predominantSugarType: "sucrose+glucose+fructose"
+    totalSolidsPercent: 11
+    form: ["frisch", "Pueree"]
+    season: null
+    source: compoundchem
+
+  - id: orange
+    name:
+      de: "Orange"
+      en: "Orange"
+    brix:
+      catalogueMin: 10
+      catalogueMax: 14
+      catalogueAvg: 11.8
+    acidityPh: 3.9
+    waterPercent: 87
+    fiberPercent: 2.4
+    predominantSugarType: "sucrose+fructose+glucose"
+    totalSolidsPercent: 13
+    form: ["frisch", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  - id: grapefruit
+    name:
+      de: "Grapefruit"
+      en: "Grapefruit"
+    brix:
+      catalogueMin: 8
+      catalogueMax: 12
+      catalogueAvg: 10.0
+    acidityPh: 3.4
+    waterPercent: 88
+    fiberPercent: 1.6
+    predominantSugarType: "sucrose+fructose+glucose"
+    totalSolidsPercent: 12
+    form: ["frisch", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  # === Tropische Fruechte / Tropical fruits ===
+
+  - id: mango
+    name:
+      de: "Mango"
+      en: "Mango"
+    brix:
+      catalogueMin: 11
+      catalogueMax: 16
+      catalogueAvg: 13.0
+    acidityPh: 4.0
+    waterPercent: 82
+    fiberPercent: 1.6
+    predominantSugarType: "sucrose+fructose+glucose"
+    totalSolidsPercent: 18
+    form: ["frisch", "TK", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  - id: passion-fruit
+    name:
+      de: "Passionsfrucht (Maracuja)"
+      en: "Passion fruit"
+    brix:
+      catalogueMin: 12
+      catalogueMax: 18
+      catalogueAvg: 14.0
+    acidityPh: 3.0
+    waterPercent: 73
+    fiberPercent: 10.4
+    predominantSugarType: "glucose+fructose"
+    totalSolidsPercent: 27
+    form: ["frisch", "TK", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  - id: banana
+    name:
+      de: "Banane"
+      en: "Banana"
+    brix:
+      catalogueMin: 18
+      catalogueMax: 24
+      catalogueAvg: 22.0
+    acidityPh: 4.6
+    waterPercent: 75
+    fiberPercent: 2.6
+    predominantSugarType: "sucrose"
+    totalSolidsPercent: 25
+    form: ["frisch", "TK"]
+    season: null
+    source: fruitsmart
+
+  - id: pineapple
+    name:
+      de: "Ananas"
+      en: "Pineapple"
+    brix:
+      catalogueMin: 11
+      catalogueMax: 15
+      catalogueAvg: 12.8
+    acidityPh: 3.5
+    waterPercent: 86
+    fiberPercent: 1.4
+    predominantSugarType: "sucrose+glucose+fructose"
+    totalSolidsPercent: 14
+    form: ["frisch", "TK", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  - id: coconut
+    name:
+      de: "Kokosnuss"
+      en: "Coconut"
+    brix:
+      catalogueMin: 5
+      catalogueMax: 8
+      catalogueAvg: 6.0
+    acidityPh: 6.0
+    waterPercent: 47
+    fiberPercent: 9.0
+    predominantSugarType: "sucrose"
+    totalSolidsPercent: 53
+    form: ["frisch", "Pueree"]
+    season: null
+    source: usda
+
+  # === Kernobst / Pome fruits ===
+
+  - id: apple
+    name:
+      de: "Apfel"
+      en: "Apple"
+    brix:
+      catalogueMin: 10
+      catalogueMax: 15
+      catalogueAvg: 11.5
+    acidityPh: 3.4
+    waterPercent: 86
+    fiberPercent: 2.4
+    predominantSugarType: "fructose+sucrose+glucose"
+    totalSolidsPercent: 14
+    form: ["frisch", "Pueree"]
+    season:
+      start: 8
+      end: 11
+    source: fruitsmart
+
+  - id: pear
+    name:
+      de: "Birne"
+      en: "Pear"
+    brix:
+      catalogueMin: 10
+      catalogueMax: 16
+      catalogueAvg: 12.0
+    acidityPh: 3.8
+    waterPercent: 84
+    fiberPercent: 3.1
+    predominantSugarType: "fructose+sucrose+glucose"
+    totalSolidsPercent: 16
+    form: ["frisch", "Pueree"]
+    season:
+      start: 8
+      end: 11
+    source: fruitsmart
+
+  # === Weitere / Other ===
+
+  - id: fig
+    name:
+      de: "Feige"
+      en: "Fig"
+    brix:
+      catalogueMin: 16
+      catalogueMax: 24
+      catalogueAvg: 20.0
+    acidityPh: 4.6
+    waterPercent: 79
+    fiberPercent: 2.9
+    predominantSugarType: "glucose+fructose"
+    totalSolidsPercent: 21
+    form: ["frisch", "TK"]
+    season:
+      start: 8
+      end: 10
+    source: fruitsmart
+
+  - id: kiwi
+    name:
+      de: "Kiwi"
+      en: "Kiwi"
+    brix:
+      catalogueMin: 12
+      catalogueMax: 18
+      catalogueAvg: 15.4
+    acidityPh: 3.3
+    waterPercent: 83
+    fiberPercent: 3.0
+    predominantSugarType: "glucose+fructose"
+    totalSolidsPercent: 17
+    form: ["frisch", "Pueree"]
+    season: null
+    source: fruitsmart
+
+  - id: melon-cantaloupe
+    name:
+      de: "Melone (Cantaloupe)"
+      en: "Melon (Cantaloupe)"
+    brix:
+      catalogueMin: 8
+      catalogueMax: 13
+      catalogueAvg: 9.6
+    acidityPh: 6.2
+    waterPercent: 90
+    fiberPercent: 0.9
+    predominantSugarType: "sucrose+glucose+fructose"
+    totalSolidsPercent: 10
+    form: ["frisch"]
+    season:
+      start: 7
+      end: 9
+    source: fruitsmart

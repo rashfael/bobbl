@@ -1,0 +1,45 @@
+meta:
+  category: fats
+  description: "Fette und Oele / Fats and oils"
+  lastUpdated: "2026-03-07"
+
+items:
+  - id: butter
+    name:
+      de: "Butter"
+      en: "Butter"
+    fatPercent: 82
+    waterPercent: 16
+    totalSolidsPercent: 84
+    meltingPointCelsius: 33
+    source: bls
+
+  - id: cocoa-butter
+    name:
+      de: "Kakaobutter"
+      en: "Cocoa butter"
+    fatPercent: 100
+    waterPercent: 0
+    totalSolidsPercent: 100
+    meltingPointCelsius: 35
+    source: usda
+
+  - id: coconut-oil
+    name:
+      de: "Kokosoel"
+      en: "Coconut oil"
+    fatPercent: 100
+    waterPercent: 0
+    totalSolidsPercent: 100
+    meltingPointCelsius: 24
+    source: usda
+
+  - id: olive-oil
+    name:
+      de: "Olivenoel (extra vergine)"
+      en: "Olive oil (extra virgin)"
+    fatPercent: 100
+    waterPercent: 0
+    totalSolidsPercent: 100
+    meltingPointCelsius: -6
+    source: usda

@@ -1,0 +1,193 @@
+meta:
+  category: stabilizers
+  description: "Stabilisatoren, Emulgatoren und Fasern / Stabilizers, emulsifiers and fibers"
+  lastUpdated: "2026-03-07"
+
+items:
+  # === Stabilisatoren / Stabilizers ===
+
+  - id: lbg
+    name:
+      de: "Johannisbrotkernmehl (LBG)"
+      en: "Locust Bean Gum (LBG)"
+    type: stabilizer
+    eNumber: "E410"
+    dosagePercent:
+      min: 0.1
+      max: 0.3
+    hydrationTempCelsius: 85
+    function: "Verdickung, Eiskristallkontrolle, Schmelzresistenz"
+    synergiesWith: ["guar-gum", "carrageenan", "xanthan"]
+    source: goff2013
+
+  - id: guar-gum
+    name:
+      de: "Guarkernmehl"
+      en: "Guar Gum"
+    type: stabilizer
+    eNumber: "E412"
+    dosagePercent:
+      min: 0.1
+      max: 0.3
+    hydrationTempCelsius: 60
+    function: "Verdickung, Wasserbindung, Koerpergeber"
+    synergiesWith: ["lbg", "xanthan"]
+    source: goff2013
+
+  - id: xanthan
+    name:
+      de: "Xanthan"
+      en: "Xanthan Gum"
+    type: stabilizer
+    eNumber: "E415"
+    dosagePercent:
+      min: 0.05
+      max: 0.2
+    hydrationTempCelsius: null
+    function: "Verdickung, pseudoplastisch (scherentfestigend), Stabilisierung"
+    synergiesWith: ["lbg", "guar-gum"]
+    source: goff2013
+
+  - id: gum-arabic
+    name:
+      de: "Gummi arabicum"
+      en: "Gum Arabic"
+    type: stabilizer
+    eNumber: "E414"
+    dosagePercent:
+      min: 0.3
+      max: 1.0
+    hydrationTempCelsius: null
+    function: "Emulgierung, Stabilisierung, Filmbildung"
+    synergiesWith: []
+    source: goff2013
+
+  - id: carrageenan
+    name:
+      de: "Carrageen (Kappa/Iota)"
+      en: "Carrageenan"
+    type: stabilizer
+    eNumber: "E407"
+    dosagePercent:
+      min: 0.01
+      max: 0.03
+    hydrationTempCelsius: 70
+    function: "Verhindert Molkentrennung, Gelbildung in sehr geringer Dosis"
+    synergiesWith: ["lbg"]
+    source: soukoulis2008
+
+  - id: tara-gum
+    name:
+      de: "Tara-Gummi"
+      en: "Tara Gum"
+    type: stabilizer
+    eNumber: "E417"
+    dosagePercent:
+      min: 0.1
+      max: 0.3
+    hydrationTempCelsius: 80
+    function: "Verdickung, Eiskristallkontrolle (aehnlich LBG)"
+    synergiesWith: ["xanthan"]
+    source: goff2013
+
+  - id: cmc
+    name:
+      de: "CMC (Carboxymethylcellulose)"
+      en: "CMC (Carboxymethyl Cellulose)"
+    type: stabilizer
+    eNumber: "E466"
+    dosagePercent:
+      min: 0.1
+      max: 0.4
+    hydrationTempCelsius: null
+    function: "Verdickung, Wasserbindung"
+    synergiesWith: []
+    source: goff2013
+
+  # === Fasern / Fibers ===
+
+  - id: citrus-fiber
+    name:
+      de: "Citrusfaser"
+      en: "Citrus Fiber"
+    type: fiber
+    eNumber: null
+    dosagePercent:
+      min: 0.3
+      max: 1.5
+    hydrationTempCelsius: null
+    function: "Wasserbindung, Texturverbesserung, Schmelzkontrolle"
+    synergiesWith: []
+    source: icecreamscience
+
+  - id: inulin-stab
+    name:
+      de: "Inulin (als Koerpergeber)"
+      en: "Inulin (as body builder)"
+    type: bulking
+    eNumber: null
+    dosagePercent:
+      min: 2
+      max: 8
+    hydrationTempCelsius: 65
+    function: "Fettersatz, Koerpergeber, Trockensubstanz-Erhoehung"
+    synergiesWith: []
+    source: muszynski2020
+
+  # === Emulgatoren / Emulsifiers ===
+
+  - id: lecithin
+    name:
+      de: "Lecithin (Soja/Sonnenblume)"
+      en: "Lecithin (soy/sunflower)"
+    type: emulsifier
+    eNumber: "E322"
+    dosagePercent:
+      min: 0.1
+      max: 0.5
+    hydrationTempCelsius: null
+    function: "Emulgierung, Fettverteilung, natuerlicher Emulgator"
+    synergiesWith: []
+    source: icecreamscience
+
+  - id: egg-yolk
+    name:
+      de: "Eigelb"
+      en: "Egg yolk"
+    type: emulsifier
+    eNumber: null
+    dosagePercent:
+      min: 2
+      max: 6
+    hydrationTempCelsius: null
+    function: "Emulgierung, Koerper, Cremigkeit, Geschmack"
+    synergiesWith: []
+    source: deGiglio2019
+
+  - id: mono-diglycerides
+    name:
+      de: "Mono- und Diglyceride von Speisefettsaeuren"
+      en: "Mono- and Diglycerides of fatty acids"
+    type: emulsifier
+    eNumber: "E471"
+    dosagePercent:
+      min: 0.2
+      max: 0.5
+    hydrationTempCelsius: null
+    function: "Partielle Fettkoaleszenz, Textur, Schmelzresistenz"
+    synergiesWith: ["polysorbate-80"]
+    source: goff2013
+
+  - id: polysorbate-80
+    name:
+      de: "Polysorbat 80"
+      en: "Polysorbate 80"
+    type: emulsifier
+    eNumber: "E433"
+    dosagePercent:
+      min: 0.04
+      max: 0.1
+    hydrationTempCelsius: null
+    function: "Unterstuetzt Fettverteilung, ergaenzt Mono-/Diglyceride"
+    synergiesWith: ["mono-diglycerides"]
+    source: goff2013
