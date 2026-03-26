@@ -1,0 +1,30 @@
+type: fruchtsorbet
+batchSize: 1000
+notes: Himbeersorbet nach De Giglio
+ingredients:
+  - ingredientId: raspberry
+    category: fruits
+    grams: 450
+    measuredBrix: 20
+  - ingredientId: lemon
+    category: fruits
+    grams: 50
+    measuredBrix: 8
+  - ingredientId: sucrose
+    category: sugars
+    grams: 109
+  - ingredientId: dextrose
+    category: sugars
+    grams: 25
+  - ingredientId: glucose-de39
+    category: sugars
+    grams: 16
+  - ingredientId: maltodextrin-de19
+    category: sugars
+    grams: 8
+  - ingredientId: lbg
+    category: stabilizers
+    grams: 3
+  - ingredientId: water
+    category: base
+    grams: 338

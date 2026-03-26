@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(for f in data/*.yaml)",
+      "Bash(do echo \"=== $f ===\")",
+      "Bash(python3 -c \"import yaml; yaml.safe_load\\(open\\(''$f''\\)\\)\")",
+      "Bash(done)",
+      "Bash(for f in /home/rash/Projects/bobbl/data/*.yaml)",
+      "Bash(do sed -i 's/\\\\t/  /g' \"$f\")"
+    ]
+  }
+}

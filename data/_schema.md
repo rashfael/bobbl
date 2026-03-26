@@ -51,6 +51,7 @@ Sugars, sweeteners, and sugar-like solids (including inulin).
 | `pac` | number | rel. | Anti-freezing power (sucrose = 100) |
 | `molecularWeight` | number \| null | g/mol | Molecular weight. `null` for polydisperse syrups. |
 | `totalSolidsPercent` | number | % | Dry matter content |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `typicalUsagePercent` | {min, max} | % | Typical range in a recipe (% of total mix) |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
@@ -69,6 +70,7 @@ Dairy products and milk-based ingredients.
 | `slngPercent` | number | % | SLNG (Solidi del Latte Non Grassi / milk solids non-fat) |
 | `totalSolidsPercent` | number | % | Total solids (fat + SLNG) |
 | `waterPercent` | number | % | Water content (= 100 - totalSolids) |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -84,6 +86,7 @@ Pure fats and oils used in ice cream.
 | `waterPercent` | number | % | Water content |
 | `totalSolidsPercent` | number | % | Total solids |
 | `meltingPointCelsius` | number \| null | C | Approximate melting point |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -102,6 +105,7 @@ Chocolate, cocoa powder, and cocoa-derived products.
 | `waterPercent` | number | % | Water content |
 | `pod` | number | rel. | POD contribution (from contained sugars) |
 | `pac` | number | rel. | PAC contribution |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -124,6 +128,7 @@ Fruits and fruit products. Brix values are catalogue reference ranges only — a
 | `totalSolidsPercent` | number | % | Total solids |
 | `form` | string[] | — | Available forms: "frisch", "TK" (tiefgekuehlt/frozen), "Pueree" |
 | `season` | {start, end} \| null | month | Central European season (1=Jan, 12=Dec). `null` for tropical imports. |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -141,6 +146,7 @@ Nuts, nut pastes, and nut-derived products.
 | `totalSolidsPercent` | number | % | Total solids |
 | `waterPercent` | number | % | Water content |
 | `isPaste` | boolean | — | Whether this entry is a paste/butter vs. whole/chopped nut |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -158,6 +164,7 @@ Stabilizers, emulsifiers, fibers, and bulking agents. The `type` field distingui
 | `hydrationTempCelsius` | number \| null | C | Temperature needed for full hydration. `null` if cold-soluble. |
 | `function` | string | — | Primary function description (German) |
 | `synergiesWith` | string[] | — | IDs of other stabilizers with synergistic effects |
+| `kcal` | number | kcal/100g | Energy content per 100g (0 for gums/fibers at negligible dosage) |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |
 
@@ -173,6 +180,7 @@ Alcoholic ingredients and spirits.
 | `sugarPercent` | number | % | Residual sugar content |
 | `pac` | number | rel. | Anti-freezing power (very high for alcohol) |
 | `waterPercent` | number | % | Water content |
+| `kcal` | number | kcal/100g | Energy content per 100g |
 | `typicalUsagePercent` | {min, max} | % | Typical recipe usage range (% of total mix) |
 | `notes` | string \| null | — | Optional notes |
 | `source` | string | — | Source reference |

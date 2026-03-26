@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"strict": false,
+		"allowJs": true,
+		"checkJs": true,
+		"resolveJsonModule": true,
+		"noErrorTruncation": true,
+		"noImplicitThis": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"paths": {
+			"~/*": ["./src/*"]
+		},
+		"types": ["node", "vite/client", "@vue-macros/reactivity-transform/macros-global"]
+	},
+	"include": ["src/**/*", "src/**/*.vue"],
+	"vueCompilerOptions": {
+		"plugins": ["@vue/language-plugin-pug"]
+	}
+}

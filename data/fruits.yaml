@@ -23,6 +23,7 @@ items:
     season:
       start: 5
       end: 7
+    kcal: 32
     source: osu_berry
 
   - id: raspberry
@@ -42,6 +43,7 @@ items:
     season:
       start: 6
       end: 8
+    kcal: 52
     source: osu_berry
 
   - id: blueberry
@@ -61,6 +63,7 @@ items:
     season:
       start: 7
       end: 9
+    kcal: 57
     source: fruitsmart
 
   - id: blackberry
@@ -80,6 +83,7 @@ items:
     season:
       start: 7
       end: 9
+    kcal: 43
     source: fruitsmart
 
   - id: red-currant
@@ -99,6 +103,7 @@ items:
     season:
       start: 6
       end: 8
+    kcal: 56
     source: fruitsmart
 
   - id: black-currant
@@ -118,6 +123,7 @@ items:
     season:
       start: 7
       end: 8
+    kcal: 63
     source: fruitsmart
 
   # === Steinobst / Stone fruits ===
@@ -139,6 +145,7 @@ items:
     season:
       start: 6
       end: 8
+    kcal: 50
     source: fruitsmart
 
   - id: sweet-cherry
@@ -158,6 +165,7 @@ items:
     season:
       start: 6
       end: 7
+    kcal: 63
     source: fruitsmart
 
   - id: apricot
@@ -177,6 +185,7 @@ items:
     season:
       start: 7
       end: 8
+    kcal: 48
     source: fruitsmart
 
   - id: peach
@@ -196,6 +205,7 @@ items:
     season:
       start: 7
       end: 9
+    kcal: 39
     source: fruitsmart
 
   - id: plum
@@ -215,6 +225,7 @@ items:
     season:
       start: 8
       end: 10
+    kcal: 46
     source: fruitsmart
 
   # === Zitrusfruechte / Citrus ===
@@ -234,6 +245,7 @@ items:
     totalSolidsPercent: 11
     form: ["frisch", "Pueree"]
     season: null
+    kcal: 29
     source: compoundchem
 
   - id: orange
@@ -251,6 +263,7 @@ items:
     totalSolidsPercent: 13
     form: ["frisch", "Pueree"]
     season: null
+    kcal: 47
     source: fruitsmart
 
   - id: grapefruit
@@ -268,6 +281,7 @@ items:
     totalSolidsPercent: 12
     form: ["frisch", "Pueree"]
     season: null
+    kcal: 42
     source: fruitsmart
 
   # === Tropische Fruechte / Tropical fruits ===
@@ -287,6 +301,7 @@ items:
     totalSolidsPercent: 18
     form: ["frisch", "TK", "Pueree"]
     season: null
+    kcal: 60
     source: fruitsmart
 
   - id: passion-fruit
@@ -304,6 +319,7 @@ items:
     totalSolidsPercent: 27
     form: ["frisch", "TK", "Pueree"]
     season: null
+    kcal: 97
     source: fruitsmart
 
   - id: banana
@@ -321,6 +337,7 @@ items:
     totalSolidsPercent: 25
     form: ["frisch", "TK"]
     season: null
+    kcal: 89
     source: fruitsmart
 
   - id: pineapple
@@ -338,6 +355,7 @@ items:
     totalSolidsPercent: 14
     form: ["frisch", "TK", "Pueree"]
     season: null
+    kcal: 50
     source: fruitsmart
 
   - id: coconut
@@ -355,6 +373,7 @@ items:
     totalSolidsPercent: 53
     form: ["frisch", "Pueree"]
     season: null
+    kcal: 354
     source: usda
 
   # === Kernobst / Pome fruits ===
@@ -376,6 +395,7 @@ items:
     season:
       start: 8
       end: 11
+    kcal: 52
     source: fruitsmart
 
   - id: pear
@@ -395,6 +415,7 @@ items:
     season:
       start: 8
       end: 11
+    kcal: 57
     source: fruitsmart
 
   # === Weitere / Other ===
@@ -416,6 +437,7 @@ items:
     season:
       start: 8
       end: 10
+    kcal: 74
     source: fruitsmart
 
   - id: kiwi
@@ -433,6 +455,7 @@ items:
     totalSolidsPercent: 17
     form: ["frisch", "Pueree"]
     season: null
+    kcal: 61
     source: fruitsmart
 
   - id: melon-cantaloupe
@@ -452,4 +475,5 @@ items:
     season:
       start: 7
       end: 9
+    kcal: 34
     source: fruitsmart

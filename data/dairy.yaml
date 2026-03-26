@@ -14,6 +14,7 @@ items:
     slngPercent: 8.9
     totalSolidsPercent: 12.4
     waterPercent: 87.6
+    kcal: 64
     source: bls
 
   - id: skim-milk
@@ -26,6 +27,7 @@ items:
     slngPercent: 9.2
     totalSolidsPercent: 9.5
     waterPercent: 90.5
+    kcal: 34
     source: bls
 
   - id: cream-35
@@ -38,6 +40,7 @@ items:
     slngPercent: 5.0
     totalSolidsPercent: 40.0
     waterPercent: 60.0
+    kcal: 337
     source: bls
 
   - id: cream-30
@@ -50,6 +53,7 @@ items:
     slngPercent: 5.5
     totalSolidsPercent: 35.5
     waterPercent: 64.5
+    kcal: 292
     source: bls
 
   - id: skim-milk-powder
@@ -62,6 +66,7 @@ items:
     slngPercent: 96.0
     totalSolidsPercent: 97.0
     waterPercent: 3.0
+    kcal: 362
     source: codex
 
   - id: whole-milk-powder
@@ -74,6 +79,7 @@ items:
     slngPercent: 71.0
     totalSolidsPercent: 97.0
     waterPercent: 3.0
+    kcal: 496
     source: codex
 
   - id: condensed-milk-sweetened
@@ -86,6 +92,7 @@ items:
     slngPercent: 22.0
     totalSolidsPercent: 74.0
     waterPercent: 26.0
+    kcal: 321
     source: usda
 
   - id: condensed-milk
@@ -98,6 +105,7 @@ items:
     slngPercent: 18.0
     totalSolidsPercent: 25.5
     waterPercent: 74.5
+    kcal: 134
     source: usda
 
   - id: mascarpone
@@ -110,6 +118,7 @@ items:
     slngPercent: 10.0
     totalSolidsPercent: 52.0
     waterPercent: 48.0
+    kcal: 429
     source: bls
 
   - id: cream-cheese
@@ -122,6 +131,7 @@ items:
     slngPercent: 11.0
     totalSolidsPercent: 35.0
     waterPercent: 65.0
+    kcal: 253
     source: bls
 
   - id: yogurt
@@ -134,6 +144,7 @@ items:
     slngPercent: 8.5
     totalSolidsPercent: 12.0
     waterPercent: 88.0
+    kcal: 63
     source: bls
 
   - id: buttermilk
@@ -146,6 +157,7 @@ items:
     slngPercent: 8.5
     totalSolidsPercent: 9.0
     waterPercent: 91.0
+    kcal: 37
     source: bls
 
   - id: creme-fraiche
@@ -158,4 +170,5 @@ items:
     slngPercent: 5.5
     totalSolidsPercent: 35.5
     waterPercent: 64.5
+    kcal: 292
     source: bls

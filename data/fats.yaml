@@ -12,6 +12,7 @@ items:
     waterPercent: 16
     totalSolidsPercent: 84
     meltingPointCelsius: 33
+    kcal: 717
     source: bls
 
   - id: cocoa-butter
@@ -22,6 +23,7 @@ items:
     waterPercent: 0
     totalSolidsPercent: 100
     meltingPointCelsius: 35
+    kcal: 884
     source: usda
 
   - id: coconut-oil
@@ -32,6 +34,7 @@ items:
     waterPercent: 0
     totalSolidsPercent: 100
     meltingPointCelsius: 24
+    kcal: 862
     source: usda
 
   - id: olive-oil
@@ -42,4 +45,5 @@ items:
     waterPercent: 0
     totalSolidsPercent: 100
     meltingPointCelsius: -6
+    kcal: 884
     source: usda

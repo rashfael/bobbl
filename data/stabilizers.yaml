@@ -18,6 +18,7 @@ items:
     hydrationTempCelsius: 85
     function: "Verdickung, Eiskristallkontrolle, Schmelzresistenz"
     synergiesWith: ["guar-gum", "carrageenan", "xanthan"]
+    kcal: 0
     source: goff2013
 
   - id: guar-gum
@@ -32,6 +33,7 @@ items:
     hydrationTempCelsius: 60
     function: "Verdickung, Wasserbindung, Koerpergeber"
     synergiesWith: ["lbg", "xanthan"]
+    kcal: 0
     source: goff2013
 
   - id: xanthan
@@ -46,6 +48,7 @@ items:
     hydrationTempCelsius: null
     function: "Verdickung, pseudoplastisch (scherentfestigend), Stabilisierung"
     synergiesWith: ["lbg", "guar-gum"]
+    kcal: 0
     source: goff2013
 
   - id: gum-arabic
@@ -60,6 +63,7 @@ items:
     hydrationTempCelsius: null
     function: "Emulgierung, Stabilisierung, Filmbildung"
     synergiesWith: []
+    kcal: 0
     source: goff2013
 
   - id: carrageenan
@@ -74,6 +78,7 @@ items:
     hydrationTempCelsius: 70
     function: "Verhindert Molkentrennung, Gelbildung in sehr geringer Dosis"
     synergiesWith: ["lbg"]
+    kcal: 0
     source: soukoulis2008
 
   - id: tara-gum
@@ -88,6 +93,7 @@ items:
     hydrationTempCelsius: 80
     function: "Verdickung, Eiskristallkontrolle (aehnlich LBG)"
     synergiesWith: ["xanthan"]
+    kcal: 0
     source: goff2013
 
   - id: cmc
@@ -102,6 +108,7 @@ items:
     hydrationTempCelsius: null
     function: "Verdickung, Wasserbindung"
     synergiesWith: []
+    kcal: 0
     source: goff2013
 
   # === Fasern / Fibers ===
@@ -118,6 +125,7 @@ items:
     hydrationTempCelsius: null
     function: "Wasserbindung, Texturverbesserung, Schmelzkontrolle"
     synergiesWith: []
+    kcal: 0
     source: icecreamscience
 
   - id: inulin-stab
@@ -132,6 +140,7 @@ items:
     hydrationTempCelsius: 65
     function: "Fettersatz, Koerpergeber, Trockensubstanz-Erhoehung"
     synergiesWith: []
+    kcal: 150
     source: muszynski2020
 
   # === Emulgatoren / Emulsifiers ===
@@ -148,6 +157,7 @@ items:
     hydrationTempCelsius: null
     function: "Emulgierung, Fettverteilung, natuerlicher Emulgator"
     synergiesWith: []
+    kcal: 763
     source: icecreamscience
 
   - id: egg-yolk
@@ -162,6 +172,7 @@ items:
     hydrationTempCelsius: null
     function: "Emulgierung, Koerper, Cremigkeit, Geschmack"
     synergiesWith: []
+    kcal: 322
     source: deGiglio2019
 
   - id: mono-diglycerides
@@ -176,6 +187,7 @@ items:
     hydrationTempCelsius: null
     function: "Partielle Fettkoaleszenz, Textur, Schmelzresistenz"
     synergiesWith: ["polysorbate-80"]
+    kcal: 884
     source: goff2013
 
   - id: polysorbate-80
@@ -190,4 +202,5 @@ items:
     hydrationTempCelsius: null
     function: "Unterstuetzt Fettverteilung, ergaenzt Mono-/Diglyceride"
     synergiesWith: ["mono-diglycerides"]
+    kcal: 0
     source: goff2013

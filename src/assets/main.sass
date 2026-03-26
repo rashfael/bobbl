@@ -1,0 +1,99 @@
+@layer typography, buntpapier
+
+:root
+	--clr-primary: #5d4037
+	--clr-accent: #8d6e63
+	--input-shape: rounded
+	--button-shape: rounded
+	color-scheme: light
+
+html, body, #app
+	margin: 0
+	height: 100%
+
+body
+	font-size: 16px
+	color: var(--clr-primary-text-light)
+
+@page
+	size: A4
+	margin: 16mm
+
+@media print
+	// hide everything except the recipe table
+	.v-app > .c-recipe-sidebar,
+	.v-calculator > .loading-overlay,
+	.v-calculator > .error-bar,
+	.v-calculator > .modified-bar,
+	.v-calculator > .save-bar,
+	.v-calculator > .controls,
+	.v-calculator > .notes,
+	.v-calculator .recipe .actions,
+	.v-calculator .recipe .c-ingredient-picker,
+	.v-calculator .balance,
+	.c-ingredient-row .actions
+		display: none !important
+
+	// hide Brix + remove columns (4th and 5th)
+	.c-recipe-table table th:nth-child(n+4),
+	.c-ingredient-row td.brix,
+	.c-ingredient-row td.actions,
+	.c-recipe-table .total-row td:nth-child(n+4)
+		display: none !important
+
+	html, body, #app
+		height: auto
+
+	.v-app
+		display: block
+
+	.v-calculator
+		padding: 0
+		max-width: none
+
+	.v-calculator .layout
+		display: block
+
+	.v-calculator .recipe h2
+		font-size: 28px
+		margin-bottom: 24px
+
+	.c-recipe-table table
+		width: 100%
+
+		th
+			font-size: 18px
+			padding: 12px 16px
+			border-bottom: 3px solid #333
+
+		td
+			padding: 12px 16px
+
+	.c-ingredient-row
+		td
+			font-size: 22px
+			padding: 12px 16px !important
+
+		.name
+			font-size: 22px
+
+		.category
+			font-size: 16px
+
+		input[type="number"]
+			border: none
+			font-size: 22px
+			width: auto
+			padding: 0
+			-moz-appearance: textfield
+			&::-webkit-inner-spin-button,
+			&::-webkit-outer-spin-button
+				-webkit-appearance: none
+
+		.remove
+			display: none
+
+	.c-recipe-table .total-row td
+		font-size: 24px
+		padding: 12px 16px !important
+		border-top: 3px solid #333

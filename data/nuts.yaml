@@ -14,6 +14,7 @@ items:
     totalSolidsPercent: 97
     waterPercent: 3
     isPaste: false
+    kcal: 628
     source: usda
 
   - id: hazelnut-paste
@@ -26,6 +27,7 @@ items:
     totalSolidsPercent: 100
     waterPercent: 0
     isPaste: true
+    kcal: 650
     source: deGiglio2019
 
   - id: pistachio-whole
@@ -38,6 +40,7 @@ items:
     totalSolidsPercent: 94
     waterPercent: 6
     isPaste: false
+    kcal: 560
     source: usda
 
   - id: pistachio-paste
@@ -50,6 +53,7 @@ items:
     totalSolidsPercent: 100
     waterPercent: 0
     isPaste: true
+    kcal: 620
     source: deGiglio2019
 
   - id: almond-whole
@@ -62,6 +66,7 @@ items:
     totalSolidsPercent: 95
     waterPercent: 5
     isPaste: false
+    kcal: 579
     source: usda
 
   - id: almond-paste
@@ -74,6 +79,7 @@ items:
     totalSolidsPercent: 100
     waterPercent: 0
     isPaste: true
+    kcal: 614
     source: deGiglio2019
 
   - id: walnut
@@ -86,6 +92,7 @@ items:
     totalSolidsPercent: 100
     waterPercent: 0
     isPaste: false
+    kcal: 654
     source: deGiglio2019
 
   - id: peanut-paste
@@ -98,6 +105,7 @@ items:
     totalSolidsPercent: 100
     waterPercent: 0
     isPaste: true
+    kcal: 588
     source: deGiglio2019
 
   - id: coconut-flakes
@@ -110,6 +118,7 @@ items:
     totalSolidsPercent: 97
     waterPercent: 3
     isPaste: false
+    kcal: 660
     source: usda
 
   - id: cashew
@@ -122,6 +131,7 @@ items:
     totalSolidsPercent: 95
     waterPercent: 5
     isPaste: false
+    kcal: 553
     source: usda
 
   - id: pecan
@@ -134,4 +144,5 @@ items:
     totalSolidsPercent: 96
     waterPercent: 4
     isPaste: false
+    kcal: 691
     source: usda

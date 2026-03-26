@@ -1,0 +1,31 @@
+type: cremeeis
+batchSize: 1000
+notes: Klassisches Vanilleeis nach De Giglio
+ingredients:
+  - ingredientId: whole-milk-3.5
+    category: dairy
+    grams: 550
+  - ingredientId: cream-35
+    category: dairy
+    grams: 133
+  - ingredientId: skim-milk-powder
+    category: dairy
+    grams: 46
+  - ingredientId: sucrose
+    category: sugars
+    grams: 112
+  - ingredientId: dextrose
+    category: sugars
+    grams: 21
+  - ingredientId: glucose-de39
+    category: sugars
+    grams: 14
+  - ingredientId: glucose-syrup-de60
+    category: sugars
+    grams: 20
+  - ingredientId: egg-yolk
+    category: base
+    grams: 100
+  - ingredientId: lbg
+    category: stabilizers
+    grams: 3
