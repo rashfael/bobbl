@@ -2,7 +2,9 @@
 
 ## Project Goal
 
-Personal SPA tool for composing gelato/ice cream recipes from a YAML ingredient database. Users pick a type (Milcheis, Sorbet, etc.), add ingredients with gram amounts, and see computed parameters (TS%, fat%, SLNG%, POD, PAC, protein%) in real-time against target ranges. The app suggests corrections and can auto-fill a balanced recipe. Recipes are saved as git-tracked YAML preset files.
+Personal SPA tool for composing gelato/ice cream recipes from a YAML ingredient database. Users pick a type (Milcheis, Sorbet, etc.), add ingredients with gram amounts, and see computed parameters (TS%, fat%, SLNG%, POD, PAC, protein%) in real-time against target ranges. The app suggests corrections and can auto-fill a balanced recipe.
+
+Recipes come from two sources: **Featured** (author-published, git-tracked YAML in `recipes/`, baked into the production bundle, read-only in the UI — fork to edit) and **My Recipes** (the visitor's own, saved to `localStorage`, full CRUD). The hosted/production build is fully usable: no backend, featured recipes are baked in, user recipes live in the browser.
 
 ## Tech Stack
 
@@ -18,35 +20,46 @@ Personal SPA tool for composing gelato/ice cream recipes from a YAML ingredient 
 ```
 src/
   lib/                    # Static data + pure logic (NO mutable state)
-    types.ts              # All TypeScript interfaces
+    types.ts              # All TypeScript interfaces (incl. RecipeData, RecipeSource)
     ingredients.ts        # Typed YAML imports + lookup helpers (findIngredient, getCategory, allIngredients)
     formulas.ts           # Pure calculation functions (calcBalance, calcPod, calcPac, etc.)
-    formulas.test.ts      # 10 tests against De Giglio worked examples
+    recipe.ts             # Recipe helpers: apportion, normalizeTo1000, areRecipesEqual (+ recipe.test.ts)
     ranges.ts             # Target ranges per ice cream type (from research docs)
-    solver.ts             # Auto-fill engine + suggestion generator
-    solver.test.ts        # 9 solver tests
+    solver.ts             # Auto-fill engine + suggestion generator (+ solver.test.ts)
+    url.ts                # Serialize/parse recipe to/from URL query (shareable links) (+ url.test.ts)
     store.ts              # createStore() factory (custom Pinia-like pattern)
-    api/presets.ts        # Raw fetch wrappers for preset CRUD endpoints
+    api/featured.ts       # Featured recipes: import.meta.glob bake-in (prod) / dev middleware fetch + dev-only store/delete
+    api/userRecipes.ts    # User recipes: localStorage CRUD + export/import (suffix on name collision)
   stores/
-    recipe.ts             # Single mutable store: type, batchSize, ingredients[], notes
-                          # Getters: balance, ranges, status, suggestions
-                          # Actions: addIngredient, removeIngredient, updateGrams, autoFillRecipe, etc.
+    recipe.ts             # Single mutable store. State: recipe {type, ingredients[], notes}, batchFactor
+                          #   (view-only; grams are canonical 1 kg basis), loadedId/loadedSource/loadedRecipe
+                          # Getters: balance, displayIngredients/displayTotal, ranges, status, suggestions,
+                          #   isModified, canUpdate (user always; featured only in dev)
+                          # Actions: addIngredient, removeIngredient, updateGrams, setDisplayTotal,
+                          #   autoFillRecipe, loadRecipe(data,id,source), markAsSaved, toRecipeData, …
+  composables/
+    useRecipeLists.ts     # Shared reactive featured/userRecipes lists + search filter + refresh helpers
+    useRouteSync.ts       # Loads the routed recipe by source, two-way syncs recipe state ↔ URL query
   components/             # Reusable UI (class prefix: .c-{name})
+    RecipeSidebar.vue     # Two lists (Featured / My Recipes) + search + Export/Import footer. New Recipe link
     RangeIndicator.vue    # Bar gauge: value vs target range with low/ok/high coloring
     BalancePanel.vue      # Grid of all 7 parameter indicators + summary stats
-    IngredientRow.vue     # Table row with native inputs (intentionally minimal, will be redesigned)
+    IngredientRow.vue     # Table row with native inputs
     RecipeTable.vue       # Full ingredient table with header, rows, total
     IngredientPicker.vue  # Category select → ingredient select → grams → add button
-    TypeSelector.vue      # Ice cream type + batch size controls
-    PresetSelector.vue    # Load/save/delete presets via API
+    TypeSelector.vue      # Ice cream type + batch (display total) controls
   views/                  # Page-level components (class prefix: .v-{name})
-    Calculator.vue        # (currently inlined in App.vue) Two-column layout: recipe + balance
+    Greeter.vue           # Landing page ('/') — welcome + counts + New Recipe CTA
+    Calculator.vue        # Recipe + balance two-column layout. Source-aware save bar:
+                          #   Update / Fork / Save / Delete (+ dev-only "Store to Featured")
   assets/
     main.sass             # Global styles, CSS layer declaration, Buntpapier overrides
 data/                     # YAML ingredient database (sugars, dairy, fats, fruits, nuts, etc.)
 research/                 # Formulas, ideal ranges, glossary — authoritative reference docs
-presets/                  # Git-tracked recipe YAML files (served via Vite dev middleware)
+recipes/                  # Featured recipe YAML (git-tracked; baked into prod, served via dev middleware)
 ```
+
+Routes ([src/routes.ts](src/routes.ts)): `/` → `home` (Greeter), `/new` → `new-recipe` (blank Calculator), `/recipes/:source/:id` → `recipe` (`source` is `featured` | `user`).
 
 ## Key Concepts (Ice Cream Science)
 
@@ -64,20 +77,25 @@ presets/                  # Git-tracked recipe YAML files (served via Vite dev m
 - Style via CSS vars: `--button-shape`, `--button-weight`, `--button-color`, `--input-shape`, `--button-size`
 - Global overrides in `main.sass`: `--input-shape: rounded`, `--button-shape: rounded`
 
-## Preset API (Dev Only)
+## Recipe storage
 
-Vite dev middleware plugin in `vite.config.ts`:
-- `GET /api/presets` — list preset names
-- `GET /api/presets/:name` — load preset as JSON
-- `POST /api/presets/:name` — save preset (JSON body → YAML file)
-- `DELETE /api/presets/:name` — delete preset file
+**Featured** (`src/lib/api/featured.ts`):
+- **Prod**: baked into the bundle via `import.meta.glob('/recipes/*.yaml', { eager: true })` — no network, read-only. `bakedIds` lists them.
+- **Dev**: read live from the `/api/recipes` dev middleware (a `vite.config.ts` plugin marked `apply: 'serve'`), so freshly-stored YAML shows immediately. Endpoints: `GET /api/recipes`, `GET /api/recipes/:name`, `POST /api/recipes/:name`, `DELETE /api/recipes/:name`. `storeFeatured`/`deleteFeatured` (write the git-tracked YAML) are **dev-only** — guarded with `import.meta.env.DEV` and exposed via the Calculator's dev-only "Store to Featured" button.
+
+**My Recipes** (`src/lib/api/userRecipes.ts`): localStorage under key `bobbl:user-recipes` (`{ [name]: RecipeData }`), available in dev and prod. CRUD + `exportUserRecipes()` (JSON envelope `{ version, recipes }`) / `importUserRecipes()` (on name collision, suffix ` (n)` rather than overwrite) + `uniqueUserName()`.
+
+Build mode is the discriminator: `import.meta.env.PROD` (true for `vite build`/`vite preview`) bakes featured in and drops every dev fetch path via dead-code elimination; `import.meta.env.DEV` enables the YAML-authoring affordances. No runtime backend in production.
 
 ## Running
 
 ```bash
 npm run dev          # Vite dev server (usually port 5173/5174)
-npx vitest           # Run unit tests (19 tests: 10 formula + 9 solver)
-npx vite build       # Production build
+npx vitest           # Run unit tests (56 tests across formulas/solver/url/recipe/store)
+npm run typecheck    # vue-tsc --noEmit
+npm run build        # Type-check + production build (bakes featured recipes in)
+npm run preview      # Serve the production build locally
+npm run deploy        # build + rsync dist/ to rash.codes:bobbl
 ```
 
 ## Playwright MCP

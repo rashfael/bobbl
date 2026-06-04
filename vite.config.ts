@@ -12,6 +12,7 @@ function recipesPlugin (): Plugin {
 
 	return {
 		name: 'recipes-api',
+		apply: 'serve',
 		configureServer (server) {
 			if (!fs.existsSync(recipesDir)) {
 				fs.mkdirSync(recipesDir, { recursive: true })

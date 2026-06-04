@@ -43,7 +43,10 @@
       "Read(//tmp/**)",
       "Bash(grep -aoE \"emits:\\\\[[^]]{0,120}\\\\]\" node_modules/buntpapier/dist/buntpapier.js)",
       "Bash(grep -o \"disabled[^,;\\)]\\\\{0,30\\\\}\" node_modules/buntpapier/dist/buntpapier.js)",
-      "Bash(grep -o \"readonly[^,;\\)]\\\\{0,20\\\\}\" node_modules/buntpapier/dist/buntpapier.js)"
+      "Bash(grep -o \"readonly[^,;\\)]\\\\{0,20\\\\}\" node_modules/buntpapier/dist/buntpapier.js)",
+      "Bash(npm view *)",
+      "mcp__playwright__browser_file_upload",
+      "mcp__playwright__browser_handle_dialog"
     ]
   }
 }

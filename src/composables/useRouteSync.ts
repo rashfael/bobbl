@@ -1,10 +1,11 @@
 import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RecipeStore } from '~/stores/recipe'
-import { loadRecipe } from '~/lib/api/recipes'
+import { loadFeatured } from '~/lib/api/featured'
+import { loadUserRecipe } from '~/lib/api/userRecipes'
 import { serializeRecipeToQuery, parseRecipeFromQuery } from '~/lib/url'
 import { areRecipesEqual } from '~/lib/recipe'
-import type { RecipeData } from '~/lib/types'
+import type { RecipeData, RecipeSource } from '~/lib/types'
 
 export function useRouteSync (store: RecipeStore) {
 	const route = useRoute()
@@ -40,10 +41,11 @@ export function useRouteSync (store: RecipeStore) {
 				}
 			} else if (route.name === 'recipe') {
 				const id = route.params.id as string
+				const source = route.params.source as RecipeSource
 				loading.value = true
 				try {
-					const data = await loadRecipe(id)
-					store.loadRecipe(data, id)
+					const data = source === 'user' ? loadUserRecipe(id) : await loadFeatured(id)
+					store.loadRecipe(data, id, source)
 					if (hasRecipeQuery()) {
 						applyQueryOverrides()
 					}

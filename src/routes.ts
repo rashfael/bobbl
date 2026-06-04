@@ -3,7 +3,8 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		redirect: '/new',
+		name: 'home',
+		component: () => import('~/views/Greeter.vue'),
 	},
 	{
 		path: '/new',
@@ -11,7 +12,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('~/views/Calculator.vue'),
 	},
 	{
-		path: '/recipes/:id',
+		path: '/recipes/:source/:id',
 		name: 'recipe',
 		component: () => import('~/views/Calculator.vue'),
 	},

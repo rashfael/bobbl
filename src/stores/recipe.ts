@@ -1,7 +1,7 @@
 import { toRaw, provide, inject } from 'vue'
 import type { InjectionKey } from 'vue'
 import { createStore } from '~/lib/store'
-import type { RecipeData, RecipeIngredient, IceCreamType, BalanceResult, BalanceStatus, Range } from '~/lib/types'
+import type { RecipeData, RecipeIngredient, IceCreamType, RecipeSource, BalanceResult, BalanceStatus, Range } from '~/lib/types'
 import { calcBalance } from '~/lib/formulas'
 import { targetRanges } from '~/lib/ranges'
 import { generateSuggestions, autoFill } from '~/lib/solver'
@@ -30,6 +30,7 @@ export function makeRecipeStore () {
 				// never part of recipe identity — resizing is "instancing", not editing.
 				batchFactor: 1,
 				loadedId: null as string | null,
+				loadedSource: null as RecipeSource | null,
 				loadedRecipe: null as RecipeData | null,
 			}
 		},
@@ -77,6 +78,12 @@ export function makeRecipeStore () {
 				if (!this.loadedRecipe) return false
 				return !areRecipesEqual(this.recipe, this.loadedRecipe)
 			},
+
+			// Can the loaded recipe be saved back in place? User recipes always; Featured
+			// only in dev (writes the git-tracked YAML via the dev middleware).
+			canUpdate (): boolean {
+				return this.loadedSource === 'user' || (import.meta.env.DEV && this.loadedSource === 'featured')
+			},
 		},
 
 		actions: {
@@ -122,7 +129,7 @@ export function makeRecipeStore () {
 				if (sum > 0) this.batchFactor = grams / sum
 			},
 
-			loadRecipe (data: { type: IceCreamType, ingredients: RecipeIngredient[], notes?: string }, id?: string) {
+			loadRecipe (data: { type: IceCreamType, ingredients: RecipeIngredient[], notes?: string }, id?: string, source?: RecipeSource) {
 				this.recipe.type = data.type
 				this.recipe.ingredients = data.ingredients
 				this.recipe.notes = data.notes ?? ''
@@ -130,17 +137,20 @@ export function makeRecipeStore () {
 				if (id) {
 					this.loadedRecipe = structuredClone(toRaw(this.recipe))
 					this.loadedId = id
+					this.loadedSource = source ?? null
 				}
 			},
 
-			markAsSaved (id: string) {
+			markAsSaved (id: string, source: RecipeSource) {
 				this.loadedRecipe = structuredClone(toRaw(this.recipe))
 				this.loadedId = id
+				this.loadedSource = source
 			},
 
 			clearLoaded () {
 				this.loadedRecipe = null
 				this.loadedId = null
+				this.loadedSource = null
 			},
 
 			autoFillRecipe () {

@@ -2,9 +2,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { createRecipeStore } from '~/stores/recipe'
-import { saveRecipe } from '~/lib/api/recipes'
+import { saveUserRecipe, uniqueUserName, deleteUserRecipe } from '~/lib/api/userRecipes'
+import { storeFeatured, deleteFeatured } from '~/lib/api/featured'
 import { useRouteSync } from '~/composables/useRouteSync'
-import { useRecipeList } from '~/composables/useRecipeList'
+import { useRecipeLists } from '~/composables/useRecipeLists'
 import TypeSelector from '~/components/TypeSelector.vue'
 import RecipeTable from '~/components/RecipeTable.vue'
 import IngredientPicker from '~/components/IngredientPicker.vue'
@@ -13,54 +14,90 @@ import BalancePanel from '~/components/BalancePanel.vue'
 const store = createRecipeStore()
 const router = useRouter()
 const { loading, error } = useRouteSync(store)
-const { refresh: refreshRecipes } = useRecipeList()
+const { refreshUser, refreshFeatured } = useRecipeLists()
 
-const forkName = ref('')
-const showFork = ref(false)
+const isDev = import.meta.env.DEV
+
+const nameInput = ref('')
+const showNameFor = ref<'user' | 'featured' | null>(null)
 const saving = ref(false)
 
-async function updateRecipe () {
-	if (!store.loadedId) return
+function openNamePrompt (kind: 'user' | 'featured') {
+	showNameFor.value = showNameFor.value === kind ? null : kind
+	nameInput.value = store.loadedId ?? ''
+}
+
+// Save the loaded recipe back in place: user recipes always, Featured only in dev (YAML).
+async function update () {
+	if (!store.loadedId || !store.canUpdate) return
 	saving.value = true
 	try {
-		await saveRecipe(store.loadedId, store.toRecipeData())
-		store.markAsSaved(store.loadedId)
-		await refreshRecipes()
+		if (store.loadedSource === 'user') {
+			saveUserRecipe(store.loadedId, store.toRecipeData())
+			store.markAsSaved(store.loadedId, 'user')
+			refreshUser()
+		} else if (store.loadedSource === 'featured') {
+			await storeFeatured(store.loadedId, store.toRecipeData())
+			store.markAsSaved(store.loadedId, 'featured')
+			await refreshFeatured()
+		}
 	} finally {
 		saving.value = false
 	}
 }
 
-async function forkRecipe () {
-	const id = forkName.value.trim()
-	if (!id) return
+// Persist the current recipe as a NEW user recipe (Save and Fork share this path).
+async function saveAsUser () {
+	const base = nameInput.value.trim()
+	if (!base) return
 	saving.value = true
 	try {
-		await saveRecipe(id, store.toRecipeData())
-		store.markAsSaved(id)
-		await refreshRecipes()
-		showFork.value = false
-		forkName.value = ''
-		router.push({ name: 'recipe', params: { id } })
+		const id = uniqueUserName(base)
+		saveUserRecipe(id, store.toRecipeData())
+		store.markAsSaved(id, 'user')
+		refreshUser()
+		showNameFor.value = null
+		nameInput.value = ''
+		router.push({ name: 'recipe', params: { source: 'user', id } })
 	} finally {
 		saving.value = false
 	}
 }
 
-async function saveNew () {
-	const id = forkName.value.trim()
+// Dev-only: promote the current recipe into the git-tracked Featured set (overwrites by name).
+async function saveAsFeatured () {
+	const id = nameInput.value.trim()
 	if (!id) return
 	saving.value = true
 	try {
-		await saveRecipe(id, store.toRecipeData())
-		store.markAsSaved(id)
-		await refreshRecipes()
-		showFork.value = false
-		forkName.value = ''
-		router.push({ name: 'recipe', params: { id } })
+		await storeFeatured(id, store.toRecipeData())
+		store.markAsSaved(id, 'featured')
+		await refreshFeatured()
+		showNameFor.value = null
+		nameInput.value = ''
+		router.push({ name: 'recipe', params: { source: 'featured', id } })
 	} finally {
 		saving.value = false
 	}
+}
+
+function submitName () {
+	if (showNameFor.value === 'featured') saveAsFeatured()
+	else saveAsUser()
+}
+
+async function removeCurrent () {
+	if (!store.loadedId || !store.loadedSource) return
+	if (!confirm(`Delete recipe "${store.loadedId}"?`)) return
+	if (store.loadedSource === 'user') {
+		deleteUserRecipe(store.loadedId)
+		refreshUser()
+	} else {
+		await deleteFeatured(store.loadedId)
+		await refreshFeatured()
+	}
+	store.clearLoaded()
+	router.push({ name: 'home' })
 }
 </script>
 
@@ -70,19 +107,18 @@ async function saveNew () {
 		bunt-progress-circular
 	.error-bar(v-if="error")
 		| {{ error }}
-	.modified-bar(v-if="store.isModified && store.loadedId")
-		span.label Recipe modified
+	.recipe-bar(v-if="store.loadedId || store.recipe.ingredients.length")
+		span.label(v-if="store.loadedSource === 'featured' && !store.canUpdate") Featured · read-only
+		span.label(v-else-if="store.isModified") Modified
 		.actions
-			bunt-button(:disabled="saving" @click="updateRecipe") Update
-			bunt-button(:disabled="saving" @click="showFork = !showFork") Fork
-			.fork-input(v-if="showFork")
-				input(v-model="forkName" placeholder="New recipe name..." @keyup.enter="forkRecipe")
-				bunt-button(:disabled="!forkName.trim() || saving" @click="forkRecipe") Save
-	.save-bar(v-if="!store.loadedId && store.recipe.ingredients.length")
-		bunt-button(@click="showFork = !showFork") Save Recipe
-		.fork-input(v-if="showFork")
-			input(v-model="forkName" placeholder="Recipe name..." @keyup.enter="saveNew")
-			bunt-button(:disabled="!forkName.trim() || saving" @click="saveNew") Save
+			bunt-button(v-if="store.isModified && store.canUpdate" :disabled="saving" @click="update") {{ store.loadedSource === 'featured' ? 'Save to YAML' : 'Update' }}
+			bunt-button(v-if="!store.loadedId && store.recipe.ingredients.length" :disabled="saving" @click="openNamePrompt('user')") Save
+			bunt-button(v-if="store.loadedId" :disabled="saving" @click="openNamePrompt('user')") Fork
+			bunt-button(v-if="isDev" :disabled="saving" @click="openNamePrompt('featured')") Store to Featured
+			bunt-button.danger(v-if="store.loadedId && (store.loadedSource === 'user' || isDev)" :disabled="saving" @click="removeCurrent") Delete
+		.name-input(v-if="showNameFor")
+			input(v-model="nameInput" :placeholder="showNameFor === 'featured' ? 'Featured name...' : 'Recipe name...'" @keyup.enter="submitName")
+			bunt-button(:disabled="!nameInput.trim() || saving" @click="submitName") {{ showNameFor === 'featured' ? 'Store' : 'Save' }}
 	section.controls
 		TypeSelector
 	.layout
@@ -132,8 +168,7 @@ async function saveNew () {
 		margin-bottom: 16px
 		font-size: 14px
 
-	.modified-bar,
-	.save-bar
+	.recipe-bar
 		display: flex
 		align-items: center
 		gap: 8px
@@ -152,8 +187,9 @@ async function saveNew () {
 			display: flex
 			align-items: center
 			gap: 8px
+			flex-wrap: wrap
 
-		.fork-input
+		.name-input
 			display: flex
 			align-items: center
 			gap: 8px
@@ -167,6 +203,9 @@ async function saveNew () {
 
 		.bunt-button
 			--button-size: small
+
+			&.danger
+				--button-color: var(--clr-danger, var(--clr-red-600))
 
 	.controls
 		display: flex

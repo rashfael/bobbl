@@ -125,6 +125,9 @@ export interface YamlFile<T extends BaseIngredient> {
 
 // --- Recipe types ---
 
+// Where a recipe lives: author-published (baked-in/YAML) vs the visitor's localStorage.
+export type RecipeSource = 'featured' | 'user'
+
 export interface RecipeIngredient {
 	ingredientId: string
 	category: IngredientCategory
