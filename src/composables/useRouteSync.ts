@@ -55,7 +55,9 @@ export function useRouteSync (store: RecipeStore) {
 				}
 			}
 		} finally {
-			setTimeout(() => { isApplyingRoute = false }, 50)
+			setTimeout(() => {
+				isApplyingRoute = false
+			}, 50)
 		}
 	}
 

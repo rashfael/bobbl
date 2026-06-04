@@ -47,11 +47,11 @@ function add () {
 		placeholder="Select ingredient..."
 	)
 	bunt-input(
+		v-model="gramsStr"
 		type="number"
 		label="Grams"
-		v-model="gramsStr"
 	)
-	bunt-button(@click="add" :disabled="!selectedIngredientId || parseInt(gramsStr) <= 0") Add
+	bunt-button(:disabled="!selectedIngredientId || parseInt(gramsStr) <= 0" @click="add") Add
 </template>
 
 <style lang="sass">

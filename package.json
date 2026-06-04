@@ -11,7 +11,9 @@
 		"test:ui": "vitest --ui",
 		"test:e2e": "playwright test",
 		"lint": "eslint .",
-		"typecheck": "vue-tsc --noEmit"
+		"lint:fix": "eslint . --fix",
+		"typecheck": "vue-tsc --noEmit",
+		"deploy": "npm run build && rsync -avz --delete dist/ rash.codes:bobbl"
 	},
 	"dependencies": {
 		"buntpapier": "^3.0.0-alpha.17",
@@ -19,6 +21,7 @@
 		"vue-router": "^4.6.4"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@modyfi/vite-plugin-yaml": "^1.1.1",
 		"@playwright/mcp": "^0.0.68",
 		"@playwright/test": "^1.58.2",

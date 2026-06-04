@@ -7,7 +7,9 @@ const recipeStore = useRecipeStore()
 
 // Editable total: resizes the whole recipe (instancing) on commit.
 let totalStr = $ref(String(recipeStore.displayTotal))
-watch(() => recipeStore.displayTotal, (v) => { totalStr = String(v) })
+watch(() => recipeStore.displayTotal, (v) => {
+	totalStr = String(v)
+})
 
 function onUpdateGrams (index: number, grams: number) {
 	recipeStore.updateGrams(index, grams)
@@ -53,8 +55,8 @@ function onTotalCommit () {
 				td
 				td.total-grams
 					input.total-input(
-						type="number"
 						v-model="totalStr"
+						type="number"
 						min="1"
 						step="1"
 						@change="onTotalCommit"

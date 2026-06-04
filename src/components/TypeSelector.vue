@@ -12,7 +12,9 @@ const typeOptions = iceCreamTypes.map(t => ({
 
 // The batch field shows the displayed total and resizes the recipe on commit.
 let batchStr = $ref(String(recipeStore.displayTotal))
-watch(() => recipeStore.displayTotal, (v) => { batchStr = String(v) })
+watch(() => recipeStore.displayTotal, (v) => {
+	batchStr = String(v)
+})
 
 function onInput (val: string) {
 	batchStr = val

@@ -4,10 +4,6 @@ import { autoFill, generateSuggestions } from './solver'
 import { calcBalance } from './formulas'
 import { targetRanges } from './ranges'
 
-function inRange (value: number, min: number, max: number) {
-	return value >= min && value <= max
-}
-
 describe('solver', () => {
 	describe('autoFill', () => {
 		it('creates a balanced Fruchtsorbet from blueberries', () => {

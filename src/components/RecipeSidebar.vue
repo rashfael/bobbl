@@ -37,7 +37,7 @@ onMounted(refresh)
 			:class="{ active: route.params.id === id }"
 		)
 			span.name {{ id }}
-			button.delete-btn(@click.prevent.stop="remove(id)" title="Delete")
+			button.delete-btn(title="Delete" @click.prevent.stop="remove(id)")
 				| ×
 	.empty(v-if="!recipes.length") No saved recipes
 </template>

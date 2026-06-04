@@ -1,4 +1,4 @@
-import type { Ingredient, IngredientCategory, RecipeIngredient, BalanceResult, Sugar, Dairy, Fat, ChocolateCocoa, Fruit, Nut, Alcohol } from './types'
+import type { Ingredient, IngredientCategory, RecipeIngredient, BalanceResult, Sugar, Dairy, ChocolateCocoa, Fruit, Alcohol } from './types'
 import { findIngredient } from './ingredients'
 
 // Resolved ingredient with its data and grams

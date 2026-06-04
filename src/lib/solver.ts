@@ -14,10 +14,9 @@
  * Also provides a suggestion engine for tuning existing recipes.
  */
 
-import type { RecipeIngredient, IceCreamType, TargetRanges, BalanceResult, BalanceStatus, Range } from './types'
+import type { RecipeIngredient, IceCreamType, Range } from './types'
 import { targetRanges } from './ranges'
-import { calcBalance, resolveIngredients, calcPod, calcPac, calcSugarGrams } from './formulas'
-import { findIngredient } from './ingredients'
+import { calcBalance, resolveIngredients, calcSugarGrams } from './formulas'
 
 // --- Suggestion engine ---
 
@@ -78,7 +77,6 @@ export function generateSuggestions (
 
 	// POD too high → replace sucrose with lower-POD sugar
 	if (balance.pod > ranges.pod.max) {
-		const excess = balance.pod - ranges.pod.max
 		suggestions.push({
 			action: 'replace',
 			parameter: 'pod',
@@ -211,7 +209,6 @@ export function autoFill (
 	// Grams already contributed
 	const fixedFatG = fixedBalance.fatPercent / 100 * fixedWeight
 	const fixedSlngG = fixedBalance.slngPercent / 100 * fixedWeight
-	const fixedSugarG = calcSugarGrams(resolveIngredients(fixedIngredients))
 
 	// --- Step 3: Fat from dairy (skip for sorbet) ---
 	if (targetFat > 1) {
@@ -309,13 +306,12 @@ function solveSugarMix (
 
 	// If all sucrose: POD = totalG * scale * 100/100 = totalG * scale
 	// PAC = same
-	const allSucrosePod = totalG * scale
 	const allSucrosePac = totalG * scale
 
 	let sucroseG = totalG
 	let dextroseG = 0
 	let glucoseDE60G = 0
-	let maltodextrinG = 0
+	let maltodextrinG
 
 	// If we need more PAC than sucrose alone provides, swap some for dextrose
 	if (pacTarget > allSucrosePac * 1.05) {
@@ -360,8 +356,8 @@ function solveSugarMix (
 	}
 
 	return {
-		'sucrose': Math.max(0, sucroseG),
-		'dextrose': Math.max(0, dextroseG),
+		sucrose: Math.max(0, sucroseG),
+		dextrose: Math.max(0, dextroseG),
 		'glucose-syrup-de60': Math.max(0, glucoseDE60G),
 		'maltodextrin-de19': Math.max(0, maltodextrinG),
 	}
