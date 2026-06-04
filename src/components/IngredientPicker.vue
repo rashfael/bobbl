@@ -1,30 +1,22 @@
 <script setup lang="ts">
-import { watch } from 'vue'
-import type { IngredientCategory, Ingredient } from '~/lib/types'
-import { categories, getCategory } from '~/lib/ingredients'
+import type { IngredientCategory } from '~/lib/types'
+import { ingredientGroups } from '~/lib/ingredients'
 import { useRecipeStore } from '~/stores/recipe'
 
 const recipeStore = useRecipeStore()
 
-let selectedCategory = $ref<IngredientCategory>('dairy')
-let selectedIngredientId = $ref('')
+let selectedValue = $ref('')
 let gramsStr = $ref('100')
-
-const availableIngredients = $computed<Ingredient[]>(() => getCategory(selectedCategory))
-
-watch(() => selectedCategory, () => {
-	selectedIngredientId = ''
-})
 
 function add () {
 	const grams = parseInt(gramsStr)
-	if (!selectedIngredientId || isNaN(grams) || grams <= 0) return
-	recipeStore.addIngredient({
-		ingredientId: selectedIngredientId,
-		category: selectedCategory,
-		grams,
-	})
-	selectedIngredientId = ''
+	if (!selectedValue || isNaN(grams) || grams <= 0) return
+	// split on the first ':' — category/ids are colon-free slugs, but this stays robust if that changes
+	const idx = selectedValue.indexOf(':')
+	const category = selectedValue.slice(0, idx) as IngredientCategory
+	const ingredientId = selectedValue.slice(idx + 1)
+	recipeStore.addIngredient({ ingredientId, category, grams })
+	selectedValue = ''
 	gramsStr = '100'
 }
 </script>
@@ -32,17 +24,11 @@ function add () {
 <template lang="pug">
 .c-ingredient-picker
 	bunt-select(
-		v-model="selectedCategory"
-		:options="categories"
-		:getOptionLabel="c => c?.label?.de ?? ''"
-		optionValue="id"
-		label="Category"
-	)
-	bunt-select(
-		v-model="selectedIngredientId"
-		:options="availableIngredients"
+		v-model="selectedValue"
+		:options="ingredientGroups"
 		:getOptionLabel="i => i?.name?.de ?? ''"
-		optionValue="id"
+		:getOptionGroupLabel="g => g?.label?.de ?? ''"
+		optionValue="value"
 		label="Ingredient"
 		placeholder="Select ingredient..."
 	)
@@ -51,7 +37,7 @@ function add () {
 		type="number"
 		label="Grams"
 	)
-	bunt-button(:disabled="!selectedIngredientId || parseInt(gramsStr) <= 0" @click="add") Add
+	bunt-button(:disabled="!selectedValue || parseInt(gramsStr) <= 0" @click="add") Add
 </template>
 
 <style lang="sass">
@@ -63,7 +49,7 @@ function add () {
 	padding: 8px 0
 
 	.bunt-select
-		min-width: 180px
+		min-width: 240px
 
 	.bunt-input
 		--input-size: compact

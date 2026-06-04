@@ -25,7 +25,11 @@ export function makeRecipeStore () {
 					type: 'milcheis',
 					ingredients: [],
 					notes: '',
+					author: '',
 				} as RecipeData,
+				// Draft / current name (= loadedId once saved). Editing it renames the
+				// recipe. Kept separate from RecipeData since the storage key IS the name.
+				name: '',
 				// View-only multiplier (1 = canonical 1 kg basis). Never persisted,
 				// never part of recipe identity — resizing is "instancing", not editing.
 				batchFactor: 1,
@@ -76,6 +80,10 @@ export function makeRecipeStore () {
 
 			isModified (): boolean {
 				if (!this.loadedRecipe) return false
+				// Renaming or re-authoring counts as a change (areRecipesEqual stays
+				// content-only so it doesn't perturb the shareable URL in useRouteSync).
+				if (this.name !== this.loadedId) return true
+				if (this.recipe.author !== this.loadedRecipe.author) return true
 				return !areRecipesEqual(this.recipe, this.loadedRecipe)
 			},
 
@@ -129,10 +137,12 @@ export function makeRecipeStore () {
 				if (sum > 0) this.batchFactor = grams / sum
 			},
 
-			loadRecipe (data: { type: IceCreamType, ingredients: RecipeIngredient[], notes?: string }, id?: string, source?: RecipeSource) {
+			loadRecipe (data: { type: IceCreamType, ingredients: RecipeIngredient[], notes?: string, author?: string }, id?: string, source?: RecipeSource) {
 				this.recipe.type = data.type
 				this.recipe.ingredients = data.ingredients
 				this.recipe.notes = data.notes ?? ''
+				this.recipe.author = data.author ?? ''
+				this.name = id ?? ''
 				this.batchFactor = 1
 				if (id) {
 					this.loadedRecipe = structuredClone(toRaw(this.recipe))
@@ -145,12 +155,14 @@ export function makeRecipeStore () {
 				this.loadedRecipe = structuredClone(toRaw(this.recipe))
 				this.loadedId = id
 				this.loadedSource = source
+				this.name = id
 			},
 
 			clearLoaded () {
 				this.loadedRecipe = null
 				this.loadedId = null
 				this.loadedSource = null
+				this.name = ''
 			},
 
 			autoFillRecipe () {

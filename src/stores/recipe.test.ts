@@ -87,6 +87,47 @@ describe('recipe store — canonical grams + batchFactor', () => {
 		const data = s.toRecipeData()
 		expect(rowSum(data.ingredients)).toBe(1000)
 		expect('batchSize' in data).toBe(false)
-		expect((data as Record<string, unknown>).batch).toBeUndefined()
+		expect((data as unknown as Record<string, unknown>).batch).toBeUndefined()
+	})
+})
+
+describe('recipe store — name + author metadata', () => {
+	const ingredients: RecipeIngredient[] = [
+		{ ingredientId: 'whole-milk-3.5', category: 'dairy', grams: 1000 },
+	]
+
+	it('loadRecipe reads author and defaults to empty when absent', () => {
+		const withAuthor = makeRecipeStore()
+		withAuthor.loadRecipe({ type: 'milcheis', ingredients, notes: '', author: 'Mara' }, 'a')
+		expect(withAuthor.recipe.author).toBe('Mara')
+
+		const without = makeRecipeStore()
+		without.loadRecipe({ type: 'milcheis', ingredients, notes: '' }, 'b')
+		expect(without.recipe.author).toBe('')
+	})
+
+	it('author round-trips through toRecipeData', () => {
+		const s = makeRecipeStore()
+		s.loadRecipe({ type: 'milcheis', ingredients, notes: '', author: 'Mara' }, 'a')
+		expect(s.toRecipeData().author).toBe('Mara')
+	})
+
+	it('renaming flags the recipe as modified; markAsSaved clears it', () => {
+		const s = makeRecipeStore()
+		s.loadRecipe({ type: 'milcheis', ingredients, notes: '', author: 'Mara' }, 'old')
+		expect(s.isModified).toBe(false)
+		s.name = 'new'
+		expect(s.isModified).toBe(true)
+		s.markAsSaved('new', 'user')
+		expect(s.name).toBe('new')
+		expect(s.isModified).toBe(false)
+	})
+
+	it('changing the author flags the recipe as modified', () => {
+		const s = makeRecipeStore()
+		s.loadRecipe({ type: 'milcheis', ingredients, notes: '', author: 'Mara' }, 'a')
+		expect(s.isModified).toBe(false)
+		s.recipe.author = 'Leo'
+		expect(s.isModified).toBe(true)
 	})
 })

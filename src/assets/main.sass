@@ -24,10 +24,9 @@ body
 	.v-app > .c-recipe-sidebar,
 	.v-calculator > .loading-overlay,
 	.v-calculator > .error-bar,
-	.v-calculator > .modified-bar,
-	.v-calculator > .save-bar,
-	.v-calculator > .controls,
+	.v-calculator > .recipe-bar,
 	.v-calculator > .notes,
+	.v-calculator .recipe .recipe-header .c-type-selector,
 	.v-calculator .recipe .actions,
 	.v-calculator .recipe .c-ingredient-picker,
 	.v-calculator .balance,
@@ -54,8 +53,9 @@ body
 	.v-calculator .layout
 		display: block
 
-	.v-calculator .recipe h2
+	.v-calculator .recipe .name-field
 		font-size: 28px
+		font-weight: 600
 		margin-bottom: 24px
 
 	.c-recipe-table table

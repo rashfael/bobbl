@@ -1,5 +1,5 @@
-// Bilingual name object
-export interface BilingualName {
+// Localized string: one value per supported language
+export interface I18nString {
 	de: string
 	en: string
 }
@@ -20,7 +20,7 @@ export interface YamlMeta {
 // Base fields shared by all ingredient items
 export interface BaseIngredient {
 	id: string
-	name: BilingualName
+	name: I18nString
 	notes?: string | null
 	source: string
 }
@@ -143,12 +143,13 @@ export interface RecipeData {
 	type: IceCreamType
 	ingredients: RecipeIngredient[]
 	notes: string
+	author?: string
 }
 
 // Target ranges for a specific ice cream type
 export interface TargetRanges {
 	type: IceCreamType
-	label: BilingualName
+	label: I18nString
 	ts: Range
 	fat: Range
 	slng: Range

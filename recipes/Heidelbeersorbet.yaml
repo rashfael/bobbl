@@ -1,4 +1,5 @@
 type: fruchtsorbet
+author: De Giglio
 ingredients:
   - category: fruits
     ingredientId: blueberry
@@ -30,4 +31,4 @@ ingredients:
   - ingredientId: guar-gum
     category: stabilizers
     grams: 2.27
-notes: Himbeersorbet nach De Giglio
+notes: ""

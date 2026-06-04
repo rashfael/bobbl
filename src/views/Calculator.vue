@@ -18,28 +18,30 @@ const { refreshUser, refreshFeatured } = useRecipeLists()
 
 const isDev = import.meta.env.DEV
 
-const nameInput = ref('')
-const showNameFor = ref<'user' | 'featured' | null>(null)
 const saving = ref(false)
 
-function openNamePrompt (kind: 'user' | 'featured') {
-	showNameFor.value = showNameFor.value === kind ? null : kind
-	nameInput.value = store.loadedId ?? ''
-}
-
-// Save the loaded recipe back in place: user recipes always, Featured only in dev (YAML).
+// Save the loaded recipe back in place: user recipes always, Featured only in dev
+// (YAML). Editing the inline name renames it: write under the new name, drop the old.
 async function update () {
 	if (!store.loadedId || !store.canUpdate) return
+	const newName = store.name.trim()
+	if (!newName) return
+	const renamed = newName !== store.loadedId
 	saving.value = true
 	try {
 		if (store.loadedSource === 'user') {
-			saveUserRecipe(store.loadedId, store.toRecipeData())
-			store.markAsSaved(store.loadedId, 'user')
+			const id = renamed ? uniqueUserName(newName) : store.loadedId
+			saveUserRecipe(id, store.toRecipeData())
+			if (renamed) deleteUserRecipe(store.loadedId)
+			store.markAsSaved(id, 'user')
 			refreshUser()
+			if (renamed) router.push({ name: 'recipe', params: { source: 'user', id } })
 		} else if (store.loadedSource === 'featured') {
-			await storeFeatured(store.loadedId, store.toRecipeData())
-			store.markAsSaved(store.loadedId, 'featured')
+			await storeFeatured(newName, store.toRecipeData())
+			if (renamed) await deleteFeatured(store.loadedId)
+			store.markAsSaved(newName, 'featured')
 			await refreshFeatured()
+			if (renamed) router.push({ name: 'recipe', params: { source: 'featured', id: newName } })
 		}
 	} finally {
 		saving.value = false
@@ -48,16 +50,13 @@ async function update () {
 
 // Persist the current recipe as a NEW user recipe (Save and Fork share this path).
 async function saveAsUser () {
-	const base = nameInput.value.trim()
-	if (!base) return
+	const base = store.name.trim() || 'Untitled'
 	saving.value = true
 	try {
 		const id = uniqueUserName(base)
 		saveUserRecipe(id, store.toRecipeData())
 		store.markAsSaved(id, 'user')
 		refreshUser()
-		showNameFor.value = null
-		nameInput.value = ''
 		router.push({ name: 'recipe', params: { source: 'user', id } })
 	} finally {
 		saving.value = false
@@ -66,24 +65,17 @@ async function saveAsUser () {
 
 // Dev-only: promote the current recipe into the git-tracked Featured set (overwrites by name).
 async function saveAsFeatured () {
-	const id = nameInput.value.trim()
+	const id = store.name.trim()
 	if (!id) return
 	saving.value = true
 	try {
 		await storeFeatured(id, store.toRecipeData())
 		store.markAsSaved(id, 'featured')
 		await refreshFeatured()
-		showNameFor.value = null
-		nameInput.value = ''
 		router.push({ name: 'recipe', params: { source: 'featured', id } })
 	} finally {
 		saving.value = false
 	}
-}
-
-function submitName () {
-	if (showNameFor.value === 'featured') saveAsFeatured()
-	else saveAsUser()
 }
 
 async function removeCurrent () {
@@ -112,18 +104,18 @@ async function removeCurrent () {
 		span.label(v-else-if="store.isModified") Modified
 		.actions
 			bunt-button(v-if="store.isModified && store.canUpdate" :disabled="saving" @click="update") {{ store.loadedSource === 'featured' ? 'Save to YAML' : 'Update' }}
-			bunt-button(v-if="!store.loadedId && store.recipe.ingredients.length" :disabled="saving" @click="openNamePrompt('user')") Save
-			bunt-button(v-if="store.loadedId" :disabled="saving" @click="openNamePrompt('user')") Fork
-			bunt-button(v-if="isDev" :disabled="saving" @click="openNamePrompt('featured')") Store to Featured
+			bunt-button(v-if="!store.loadedId && store.recipe.ingredients.length" :disabled="saving" @click="saveAsUser") Save
+			bunt-button(v-if="store.loadedId" :disabled="saving" @click="saveAsUser") Fork
+			bunt-button(v-if="isDev" :disabled="saving" @click="saveAsFeatured") Store to Featured
 			bunt-button.danger(v-if="store.loadedId && (store.loadedSource === 'user' || isDev)" :disabled="saving" @click="removeCurrent") Delete
-		.name-input(v-if="showNameFor")
-			input(v-model="nameInput" :placeholder="showNameFor === 'featured' ? 'Featured name...' : 'Recipe name...'" @keyup.enter="submitName")
-			bunt-button(:disabled="!nameInput.trim() || saving" @click="submitName") {{ showNameFor === 'featured' ? 'Store' : 'Save' }}
-	section.controls
-		TypeSelector
 	.layout
 		section.recipe
-			h2 Recipe
+			.recipe-header
+				.title
+					input.name-field(v-model="store.name" placeholder="Untitled recipe")
+					span.by by
+					input.author-field(v-model="store.recipe.author" placeholder="author")
+				TypeSelector
 			RecipeTable
 			IngredientPicker
 			.actions
@@ -189,31 +181,11 @@ async function removeCurrent () {
 			gap: 8px
 			flex-wrap: wrap
 
-		.name-input
-			display: flex
-			align-items: center
-			gap: 8px
-
-			input
-				padding: 4px 8px
-				border: 1px solid var(--clr-grey-300)
-				border-radius: 4px
-				font-size: 14px
-				font-family: inherit
-
 		.bunt-button
 			--button-size: small
 
 			&.danger
 				--button-color: var(--clr-danger, var(--clr-red-600))
-
-	.controls
-		display: flex
-		flex-direction: column
-		gap: 8px
-		margin-bottom: 24px
-		padding-bottom: 16px
-		border-bottom: 1px solid var(--clr-grey-200)
 
 	.layout
 		display: grid
@@ -225,9 +197,56 @@ async function removeCurrent () {
 			grid-template-columns: 1fr
 
 	.recipe
-		h2
-			margin: 0 0 16px
-			font-size: 18px
+		.recipe-header
+			display: flex
+			align-items: baseline
+			justify-content: space-between
+			gap: 16px
+			margin-bottom: 16px
+			flex-wrap: wrap
+
+			.title
+				display: flex
+				align-items: baseline
+				gap: 6px
+				min-width: 0
+
+			.name-field, .author-field
+				border: none
+				background: transparent
+				padding: 0
+				font-family: inherit
+				color: inherit
+				field-sizing: content
+				border-bottom: 1px solid transparent
+
+				&:focus
+					outline: none
+
+				&:hover, &:focus
+					border-bottom-color: var(--clr-grey-300)
+
+				&:focus
+					border-bottom-color: var(--clr-primary)
+
+				&::placeholder
+					color: var(--clr-grey-400)
+					font-weight: 400
+
+			.name-field
+				font-size: 18px
+				font-weight: 600
+				min-width: 6ch
+				max-width: 100%
+
+			.by
+				color: var(--clr-secondary-text-light)
+				font-size: 14px
+
+			.author-field
+				font-size: 14px
+				color: var(--clr-secondary-text-light)
+				min-width: 4ch
 
 		.actions
 			display: flex

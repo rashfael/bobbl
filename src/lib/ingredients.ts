@@ -1,4 +1,4 @@
-import type { Sugar, Dairy, Fat, ChocolateCocoa, Fruit, Nut, Stabilizer, Alcohol, BaseComposition, Ingredient, IngredientCategory, YamlFile } from './types'
+import type { Sugar, Dairy, Fat, ChocolateCocoa, Fruit, Nut, Stabilizer, Alcohol, BaseComposition, Ingredient, IngredientCategory, I18nString, YamlFile } from './types'
 
 import sugarsYaml from '../../data/sugars.yaml'
 import dairyYaml from '../../data/dairy.yaml'
@@ -76,6 +76,28 @@ export function findIngredient (category: IngredientCategory, id: string): Ingre
 export function getCategory (category: IngredientCategory): Ingredient[] {
 	return categoryMap[category] ?? []
 }
+
+// A single ingredient as a grouped-select option, carrying a composite value so a
+// one-step select can still recover the category on add (see IngredientPicker.vue).
+export interface IngredientOption {
+	value: string // composite "<category>:<id>"
+	name: I18nString
+	category: IngredientCategory
+	id: string
+}
+
+// Ingredients grouped by category for a single grouped bunt-select.
+// Built once (YAML data is static) so option identity stays stable across renders.
+export const ingredientGroups: { label: I18nString, items: IngredientOption[] }[] =
+	categories.map(c => ({
+		label: c.label,
+		items: getCategory(c.id).map(ing => ({
+			value: `${c.id}:${ing.id}`,
+			name: ing.name,
+			category: c.id,
+			id: ing.id,
+		})),
+	}))
 
 // Flat list of all ingredients with their category
 export function allIngredients (): { category: IngredientCategory, ingredient: Ingredient }[] {
