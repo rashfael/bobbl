@@ -1,0 +1,33 @@
+type: fruchtsorbet
+ingredients:
+  - category: fruits
+    ingredientId: blueberry
+    grams: 397.72
+  - category: sugars
+    ingredientId: sucrose
+    grams: 147.73
+  - category: sugars
+    ingredientId: dextrose
+    grams: 28.41
+  - category: sugars
+    ingredientId: glucose-de39
+    grams: 18.18
+  - category: sugars
+    ingredientId: maltodextrin-de19
+    grams: 22.73
+  - category: stabilizers
+    ingredientId: lbg
+    grams: 3.41
+  - category: base
+    ingredientId: water
+    grams: 340.91
+  - ingredientId: dextrose
+    category: sugars
+    grams: 21.59
+  - ingredientId: inulin-stab
+    category: stabilizers
+    grams: 17.05
+  - ingredientId: guar-gum
+    category: stabilizers
+    grams: 2.27
+notes: Himbeersorbet nach De Giglio

@@ -1,12 +1,11 @@
 import { toRaw, provide, inject } from 'vue'
 import type { InjectionKey } from 'vue'
 import { createStore } from '~/lib/store'
-import type { RecipeIngredient, IceCreamType, BalanceResult, BalanceStatus, Range } from '~/lib/types'
+import type { RecipeData, RecipeIngredient, IceCreamType, BalanceResult, BalanceStatus, Range } from '~/lib/types'
 import { calcBalance } from '~/lib/formulas'
 import { targetRanges } from '~/lib/ranges'
 import { generateSuggestions, autoFill } from '~/lib/solver'
-import { areRecipesEqual } from '~/lib/url'
-import type { RecipeData } from '~/lib/url'
+import { areRecipesEqual, apportion, normalizeTo1000, round2 } from '~/lib/recipe'
 
 function checkRange (value: number, range: Range): BalanceStatus {
 	if (value < range.min) return 'low'
@@ -18,16 +17,18 @@ export type RecipeStore = ReturnType<typeof createRecipeStore>
 
 const recipeStoreKey: InjectionKey<RecipeStore> = Symbol('recipeStore')
 
-export function createRecipeStore () {
-	const store = createStore('recipe', {
+export function makeRecipeStore () {
+	return createStore('recipe', {
 		state () {
 			return {
 				recipe: {
 					type: 'milcheis',
-					batchSize: 1000,
 					ingredients: [],
 					notes: '',
 				} as RecipeData,
+				// View-only multiplier (1 = canonical 1 kg basis). Never persisted,
+				// never part of recipe identity — resizing is "instancing", not editing.
+				batchFactor: 1,
 				loadedId: null as string | null,
 				loadedRecipe: null as RecipeData | null,
 			}
@@ -36,6 +37,16 @@ export function createRecipeStore () {
 		getters: {
 			balance (): BalanceResult {
 				return calcBalance(this.recipe.ingredients)
+			},
+
+			// Ingredient grams scaled to the current batch, rounded so the rows sum
+			// exactly to displayTotal (residual lands on the largest ingredient).
+			displayIngredients (): RecipeIngredient[] {
+				return apportion(this.recipe.ingredients, this.batchFactor)
+			},
+
+			displayTotal (): number {
+				return round2(this.balance.totalWeight * this.batchFactor)
 			},
 
 			ranges () {
@@ -58,7 +69,8 @@ export function createRecipeStore () {
 			},
 
 			suggestions () {
-				return generateSuggestions(this.recipe.ingredients, this.recipe.type, this.recipe.batchSize)
+				// Computed in display units so suggested grams/text match what the user sees.
+				return generateSuggestions(this.displayIngredients, this.recipe.type, this.displayTotal)
 			},
 
 			isModified (): boolean {
@@ -68,18 +80,26 @@ export function createRecipeStore () {
 		},
 
 		actions: {
+			// `grams` here is in display units — convert to the canonical 1 kg basis.
 			addIngredient (ingredient: RecipeIngredient) {
-				this.recipe.ingredients.push(ingredient)
+				this.recipe.ingredients.push({
+					...ingredient,
+					grams: ingredient.grams / this.batchFactor,
+				})
 			},
 
 			removeIngredient (index: number) {
 				this.recipe.ingredients.splice(index, 1)
 			},
 
-			updateGrams (index: number, grams: number) {
-				if (this.recipe.ingredients[index]) {
-					this.recipe.ingredients[index].grams = grams
-				}
+			// `displayGrams` is the value the user typed (display units). If it already
+			// equals what's rendered, nothing changed — leave the canonical grams alone
+			// so a no-op edit can't perturb the recipe or flag it as modified.
+			updateGrams (index: number, displayGrams: number) {
+				const ing = this.recipe.ingredients[index]
+				if (!ing) return
+				if (displayGrams === this.displayIngredients[index]?.grams) return
+				ing.grams = displayGrams / this.batchFactor
 			},
 
 			updateMeasuredBrix (index: number, brix: number | undefined) {
@@ -92,15 +112,21 @@ export function createRecipeStore () {
 				this.recipe.type = type
 			},
 
-			setBatchSize (size: number) {
-				this.recipe.batchSize = size
+			// Resize the whole recipe to a displayed total of `grams` by adjusting the
+			// view multiplier only — the canonical grams are never touched, so this is
+			// "instancing" and never marks the recipe as modified.
+			setDisplayTotal (grams: number) {
+				if (grams <= 0) return
+				if (grams === this.displayTotal) return
+				const sum = this.balance.totalWeight
+				if (sum > 0) this.batchFactor = grams / sum
 			},
 
-			loadRecipe (data: { type: IceCreamType, batchSize: number, ingredients: RecipeIngredient[], notes?: string }, id?: string) {
+			loadRecipe (data: { type: IceCreamType, ingredients: RecipeIngredient[], notes?: string }, id?: string) {
 				this.recipe.type = data.type
-				this.recipe.batchSize = data.batchSize
 				this.recipe.ingredients = data.ingredients
 				this.recipe.notes = data.notes ?? ''
+				this.batchFactor = 1
 				if (id) {
 					this.loadedRecipe = structuredClone(toRaw(this.recipe))
 					this.loadedId = id
@@ -118,16 +144,24 @@ export function createRecipeStore () {
 			},
 
 			autoFillRecipe () {
-				const filled = autoFill(this.recipe.type, this.recipe.batchSize, [...this.recipe.ingredients])
+				// Fill against the canonical 1 kg basis; the view multiplier renders it
+				// at whatever instance size the user is viewing.
+				const filled = autoFill(this.recipe.type, 1000, [...this.recipe.ingredients])
 				this.recipe.ingredients = filled
 			},
 
+			// Persisted form: canonical 1 kg basis, no batch size.
 			toRecipeData (): RecipeData {
-				return structuredClone(toRaw(this.recipe))
+				const raw = structuredClone(toRaw(this.recipe))
+				raw.ingredients = normalizeTo1000(raw.ingredients)
+				return raw
 			},
 		},
 	})
+}
 
+export function createRecipeStore () {
+	const store = makeRecipeStore()
 	provide(recipeStoreKey, store)
 	return store
 }

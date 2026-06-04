@@ -2,8 +2,9 @@ import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RecipeStore } from '~/stores/recipe'
 import { loadRecipe } from '~/lib/api/recipes'
-import { serializeRecipeToQuery, parseRecipeFromQuery, areRecipesEqual } from '~/lib/url'
-import type { RecipeData } from '~/lib/url'
+import { serializeRecipeToQuery, parseRecipeFromQuery } from '~/lib/url'
+import { areRecipesEqual } from '~/lib/recipe'
+import type { RecipeData } from '~/lib/types'
 
 export function useRouteSync (store: RecipeStore) {
 	const route = useRoute()
@@ -17,9 +18,10 @@ export function useRouteSync (store: RecipeStore) {
 		const query = route.query as Record<string, string>
 		const parsed = parseRecipeFromQuery(query)
 		if (parsed.type) store.setType(parsed.type)
-		if (parsed.batchSize) store.setBatchSize(parsed.batchSize)
 		if (parsed.ingredients) store.recipe.ingredients = parsed.ingredients
 		if (parsed.notes != null) store.recipe.notes = parsed.notes
+		// Ingredients first — setDisplayTotal derives the view multiplier from their sum.
+		if (parsed.batch) store.setDisplayTotal(parsed.batch)
 	}
 
 	function hasRecipeQuery (): boolean {
@@ -63,26 +65,25 @@ export function useRouteSync (store: RecipeStore) {
 
 	let debounceTimer: ReturnType<typeof setTimeout> | undefined
 	watch(
-		() => store.recipe,
-		(current) => {
+		[() => store.recipe, () => store.batchFactor],
+		() => {
 			if (isApplyingRoute) return
 			clearTimeout(debounceTimer)
 			debounceTimer = setTimeout(() => {
-				const currentData = current as RecipeData
+				const currentData = store.recipe as RecipeData
+				// Encode the viewed instance size only when it's non-canonical.
+				const batchGrams = store.batchFactor !== 1 ? store.displayTotal : undefined
 
 				if (route.name === 'new-recipe') {
 					if (currentData.ingredients.length > 0 || currentData.notes) {
-						const query = serializeRecipeToQuery(currentData)
-						router.replace({ query })
-					} else {
-						if (Object.keys(route.query).length > 0) {
-							router.replace({ query: {} })
-						}
+						router.replace({ query: serializeRecipeToQuery(currentData, batchGrams) })
+					} else if (Object.keys(route.query).length > 0) {
+						router.replace({ query: {} })
 					}
 				} else if (route.name === 'recipe') {
-					if (store.loadedRecipe && !areRecipesEqual(currentData, store.loadedRecipe)) {
-						const query = serializeRecipeToQuery(currentData)
-						router.replace({ query })
+					const changed = store.loadedRecipe && !areRecipesEqual(currentData, store.loadedRecipe)
+					if (changed || store.batchFactor !== 1) {
+						router.replace({ query: serializeRecipeToQuery(currentData, batchGrams) })
 					} else if (Object.keys(route.query).length > 0) {
 						router.replace({ query: {} })
 					}

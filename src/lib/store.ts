@@ -14,7 +14,7 @@ type Store<S, G, A> = UnwrapNestedRefs<S> & GetterReturnTypes<G> & A & StoreMeth
 type GettersTree<S> = Record<string, (this: S, state: S) => any> | Record<string, () => any>
 type ActionsTree = Record<string, (...args: any[]) => any>
 
-window.stores = {}
+if (typeof window !== 'undefined') window.stores = {}
 
 export function createStore<
 	S extends object,
@@ -78,6 +78,6 @@ export function createStore<
 		watch(source.bind(store), callback.bind(store), options)
 	}
 
-	window.stores[name] = store
+	if (typeof window !== 'undefined') window.stores[name] = store
 	return store
 }

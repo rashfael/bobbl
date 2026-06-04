@@ -20,7 +20,7 @@ const parameterLabels = [
 	.summary
 		.stat
 			span.label Weight
-			span.value {{ recipeStore.balance.totalWeight.toFixed(0) }} g
+			span.value {{ recipeStore.displayTotal.toFixed(0) }} g
 		.stat
 			span.label Water
 			span.value {{ recipeStore.balance.waterPercent.toFixed(1) }}%

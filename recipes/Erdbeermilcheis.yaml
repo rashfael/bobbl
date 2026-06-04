@@ -1,0 +1,33 @@
+type: milcheis
+ingredients:
+  - category: fruits
+    ingredientId: strawberry
+    grams: 299.72
+  - category: dairy
+    ingredientId: whole-milk-3.5
+    grams: 412.94
+  - category: dairy
+    ingredientId: cream-35
+    grams: 66.6
+  - category: dairy
+    ingredientId: skim-milk-powder
+    grams: 53.28
+  - category: sugars
+    ingredientId: sucrose
+    grams: 111.9
+  - category: sugars
+    ingredientId: dextrose
+    grams: 19.98
+  - category: sugars
+    ingredientId: glucose-de39
+    grams: 15.99
+  - category: sugars
+    ingredientId: glucose-syrup-de60
+    grams: 15.99
+  - category: stabilizers
+    ingredientId: lbg
+    grams: 2
+  - category: stabilizers
+    ingredientId: guar-gum
+    grams: 1.6
+notes: ""

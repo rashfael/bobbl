@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { watch } from 'vue'
 import { useRecipeStore } from '~/stores/recipe'
 import { targetRanges, iceCreamTypes } from '~/lib/ranges'
 
@@ -9,14 +10,18 @@ const typeOptions = iceCreamTypes.map(t => ({
 	label: targetRanges[t].label.de,
 }))
 
-let batchSizeStr = $ref(String(recipeStore.recipe.batchSize))
+// The batch field shows the displayed total and resizes the recipe on commit.
+let batchStr = $ref(String(recipeStore.displayTotal))
+watch(() => recipeStore.displayTotal, (v) => { batchStr = String(v) })
 
-function onBatchSizeUpdate (val: string) {
-	batchSizeStr = val
-	const num = parseInt(val)
-	if (!isNaN(num) && num > 0) {
-		recipeStore.recipe.batchSize = num
-	}
+function onInput (val: string) {
+	batchStr = val
+}
+
+function commit () {
+	const num = parseFloat(batchStr)
+	if (!isNaN(num) && num > 0) recipeStore.setDisplayTotal(num)
+	batchStr = String(recipeStore.displayTotal)
 }
 </script>
 
@@ -32,8 +37,10 @@ function onBatchSizeUpdate (val: string) {
 	bunt-input(
 		type="number"
 		label="Batch (g)"
-		:modelValue="batchSizeStr"
-		@update:modelValue="onBatchSizeUpdate"
+		:modelValue="batchStr"
+		@update:modelValue="onInput"
+		@change="commit"
+		@keyup.enter="commit"
 	)
 </template>
 

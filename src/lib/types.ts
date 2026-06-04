@@ -135,6 +135,13 @@ export interface RecipeIngredient {
 // Ice cream type identifiers
 export type IceCreamType = 'cremeeis' | 'milcheis' | 'fruchtsorbet' | 'schokoladeneis' | 'nusseis' | 'joghurteis'
 
+// A complete recipe, stored on a canonical 1000 g basis (batch size is a view concern).
+export interface RecipeData {
+	type: IceCreamType
+	ingredients: RecipeIngredient[]
+	notes: string
+}
+
 // Target ranges for a specific ice cream type
 export interface TargetRanges {
 	type: IceCreamType
